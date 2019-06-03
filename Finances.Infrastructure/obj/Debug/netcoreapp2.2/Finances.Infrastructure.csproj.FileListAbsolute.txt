@@ -1,0 +1,9 @@
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\bin\Debug\netcoreapp2.2\Finances.Infrastructure.deps.json
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\bin\Debug\netcoreapp2.2\Finances.Infrastructure.dll
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\bin\Debug\netcoreapp2.2\Finances.Infrastructure.pdb
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.AssemblyInfo.cs
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.dll
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.pdb
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Infrastructure\obj\Debug\netcoreapp2.2\Finances.Infrastructure.csprojAssemblyReference.cache

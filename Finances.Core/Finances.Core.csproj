@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Application\Accounts\Commands\Handler.cs~RF16bc175.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="FluentValidation" Version="8.4.0" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Accounts\Queries\" />
+    <Folder Include="Application\Favoreds\Queries\GetFavoredsByUserId\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Finances.Common\Finances.Common.csproj" />
+  </ItemGroup>
+
+</Project>
