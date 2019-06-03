@@ -4950,6 +4950,23 @@
         "runtime": {
           "bin/placeholder/Finances.Core.dll": {}
         }
+      },
+      "Finances.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "AutoMapper": "8.1.0",
+          "Finances.Core": "1.0.0",
+          "FluentValidation": "8.4.0",
+          "MediatR": "7.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4"
+        },
+        "compile": {
+          "bin/placeholder/Finances.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Finances.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -13451,6 +13468,11 @@
       "type": "project",
       "path": "../Finances.Core/Finances.Core.csproj",
       "msbuildProject": "../Finances.Core/Finances.Core.csproj"
+    },
+    "Finances.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Finances.Infrastructure/Finances.Infrastructure.csproj",
+      "msbuildProject": "../Finances.Infrastructure/Finances.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -13459,6 +13481,7 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 6.0.0",
       "Finances.Common >= 1.0.0",
       "Finances.Core >= 1.0.0",
+      "Finances.Infrastructure >= 1.0.0",
       "FluentValidation >= 8.4.0",
       "MediatR >= 7.0.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 6.0.1",
@@ -13508,6 +13531,9 @@
             },
             "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Core\\Finances.Core.csproj": {
               "projectPath": "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Core\\Finances.Core.csproj"
+            },
+            "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Infrastructure\\Finances.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Infrastructure\\Finances.Infrastructure.csproj"
             }
           }
         }

@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Finances.Common\Finances.Common.csproj" />
     <ProjectReference Include="..\Finances.Core\Finances.Core.csproj" />
+    <ProjectReference Include="..\Finances.Infrastructure\Finances.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

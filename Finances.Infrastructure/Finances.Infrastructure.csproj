@@ -15,4 +15,8 @@
     <Folder Include="Infrastructure\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Finances.Core\Finances.Core.csproj" />
+  </ItemGroup>
+
 </Project>

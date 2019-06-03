@@ -781,6 +781,39 @@
         "compile": {
           "ref/netstandard1.3/System.Threading.Tasks.dll": {}
         }
+      },
+      "Finances.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "AutoMapper": "8.1.0",
+          "FluentValidation": "8.4.0",
+          "MediatR": "7.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4"
+        },
+        "compile": {
+          "bin/placeholder/Finances.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Finances.Common.dll": {}
+        }
+      },
+      "Finances.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "AutoMapper": "8.1.0",
+          "Finances.Common": "1.0.0",
+          "FluentValidation": "8.4.0",
+          "MediatR": "7.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4"
+        },
+        "compile": {
+          "bin/placeholder/Finances.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Finances.Core.dll": {}
+        }
       }
     }
   },
@@ -3145,11 +3178,22 @@
         "system.threading.tasks.4.3.0.nupkg.sha512",
         "system.threading.tasks.nuspec"
       ]
+    },
+    "Finances.Common/1.0.0": {
+      "type": "project",
+      "path": "../Finances.Common/Finances.Common.csproj",
+      "msbuildProject": "../Finances.Common/Finances.Common.csproj"
+    },
+    "Finances.Core/1.0.0": {
+      "type": "project",
+      "path": "../Finances.Core/Finances.Core.csproj",
+      "msbuildProject": "../Finances.Core/Finances.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "AutoMapper >= 8.1.0",
+      "Finances.Core >= 1.0.0",
       "FluentValidation >= 8.4.0",
       "MediatR >= 7.0.0",
       "Microsoft.EntityFrameworkCore >= 2.2.4",
@@ -3185,7 +3229,11 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Core\\Finances.Core.csproj": {
+              "projectPath": "C:\\Users\\Csorgo\\Documents\\projects\\Finances\\New Architeture\\Finances.Api\\Finances.Core\\Finances.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -3,10 +3,11 @@ using Finances.Core.Application.Interfaces;
 using Finances.Core.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static Finances.Core.Application.Helpers.Enum;
+using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
 {
@@ -37,7 +38,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
             {
                 if (request.Account != null)
                 {
-                    var favoredAccounts = await _context.FavoredHasAccount
+                    IList<Account> favoredAccounts = await _context.FavoredHasAccount
                     .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
                     .Select(fha => fha.Account)
                     .ToListAsync();
@@ -60,7 +61,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
                 }
                 else
                 {
-                    var favoredAccounts = await _context.FavoredHasAccount
+                    IList<Account> favoredAccounts = await _context.FavoredHasAccount
                     .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
                     .Select(fha => fha.Account)
                     .ToListAsync();

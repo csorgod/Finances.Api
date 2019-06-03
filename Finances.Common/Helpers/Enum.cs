@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Finances.Core.Application.Helpers
+namespace Finances.Common.Helpers
 {
     public class Enum
     {

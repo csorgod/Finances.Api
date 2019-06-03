@@ -26,7 +26,9 @@
         "dependencies": {
           "AutoMapper": "8.1.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.0.0",
+          "Finances.Common": "1.0.0",
           "Finances.Core": "1.0.0",
+          "Finances.Infrastructure": "1.0.0",
           "FluentValidation": "8.4.0",
           "MediatR": "7.0.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "6.0.1",
@@ -844,9 +846,25 @@
           }
         }
       },
+      "Finances.Common/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "8.1.0",
+          "FluentValidation": "8.4.0",
+          "MediatR": "7.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4"
+        },
+        "runtime": {
+          "Finances.Common.dll": {}
+        },
+        "compile": {
+          "Finances.Common.dll": {}
+        }
+      },
       "Finances.Core/1.0.0": {
         "dependencies": {
           "AutoMapper": "8.1.0",
+          "Finances.Common": "1.0.0",
+          "FluentValidation": "8.4.0",
           "MediatR": "7.0.0",
           "Microsoft.EntityFrameworkCore": "2.2.4"
         },
@@ -855,6 +873,21 @@
         },
         "compile": {
           "Finances.Core.dll": {}
+        }
+      },
+      "Finances.Infrastructure/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "8.1.0",
+          "Finances.Core": "1.0.0",
+          "FluentValidation": "8.4.0",
+          "MediatR": "7.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.4"
+        },
+        "runtime": {
+          "Finances.Infrastructure.dll": {}
+        },
+        "compile": {
+          "Finances.Infrastructure.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -4143,7 +4176,17 @@
       "path": "system.security.cryptography.protecteddata/4.4.0",
       "hashPath": "system.security.cryptography.protecteddata.4.4.0.nupkg.sha512"
     },
+    "Finances.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Finances.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Finances.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

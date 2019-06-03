@@ -3,8 +3,12 @@ C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finance
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Api.runtimeconfig.dev.json
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Api.dll
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Api.pdb
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Common.dll
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Core.dll
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Infrastructure.dll
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Common.pdb
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Core.pdb
+C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\bin\Debug\netcoreapp2.2\Finances.Infrastructure.pdb
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\obj\Debug\netcoreapp2.2\Finances.Api.csprojAssemblyReference.cache
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\obj\Debug\netcoreapp2.2\Finances.Api.csproj.CoreCompileInputs.cache
 C:\Users\Csorgo\Documents\projects\Finances\New Architeture\Finances.Api\Finances.Api\obj\Debug\netcoreapp2.2\Finances.Api.RazorAssemblyInfo.cache

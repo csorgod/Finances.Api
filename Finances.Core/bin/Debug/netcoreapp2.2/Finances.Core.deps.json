@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "395dc5be6682d587e311b82ffe97db871bb52282"
+    "signature": "29504a3e981233d9a2f89a2f77846990e8b0ff76"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,6 +10,7 @@
         "dependencies": {
           "AutoMapper": "8.1.0",
           "Finances.Common": "1.0.0",
+          "FluentValidation": "8.4.0",
           "MediatR": "7.0.0",
           "Microsoft.EntityFrameworkCore": "2.2.4"
         },
@@ -26,6 +27,17 @@
           "lib/netstandard2.0/AutoMapper.dll": {
             "assemblyVersion": "8.1.0.0",
             "fileVersion": "8.1.0.0"
+          }
+        }
+      },
+      "FluentValidation/8.4.0": {
+        "dependencies": {
+          "System.ComponentModel.Annotations": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentValidation.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.4.0.0"
           }
         }
       },
@@ -384,6 +396,7 @@
       "Finances.Common/1.0.0": {
         "dependencies": {
           "AutoMapper": "8.1.0",
+          "FluentValidation": "8.4.0",
           "MediatR": "7.0.0",
           "Microsoft.EntityFrameworkCore": "2.2.4"
         },
@@ -405,6 +418,13 @@
       "sha512": "sha512-Go75WXHE7p/8CtRaxZnvVEfcSh7xpE6zx9wkgN4I1BxvlzP0hoiTLHSXDYXgv9CoxaRj4ahwzCA/iwdpvyQyOA==",
       "path": "automapper/8.1.0",
       "hashPath": "automapper.8.1.0.nupkg.sha512"
+    },
+    "FluentValidation/8.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-/VApywgD2sqD3aB1tzub6SIItmwxXN0D5yAiP3kuFHmjYO1W+Ryi531/m4O03/hlfcYrBgewDJn7Jd1Xk0vTdw==",
+      "path": "fluentvalidation/8.4.0",
+      "hashPath": "fluentvalidation.8.4.0.nupkg.sha512"
     },
     "MediatR/7.0.0": {
       "type": "package",

@@ -1,5 +1,5 @@
 ﻿using System;
-using static Finances.Core.Application.Helpers.Enum;
+using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Domain.Entities
 {
