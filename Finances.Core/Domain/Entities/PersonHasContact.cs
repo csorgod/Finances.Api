@@ -6,8 +6,8 @@ namespace Finances.Core.Domain.Entities
 {
     public class PersonHasContact : BaseEntity
     {
-        public string PersonId { get; set; }
-        public string ContactId { get; set; }
+        public Guid PersonId { get; set; }
+        public Guid ContactId { get; set; }
         public Person Person { get; set; }
         public Contact Contact { get; set; }
     }

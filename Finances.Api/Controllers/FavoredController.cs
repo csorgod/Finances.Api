@@ -1,6 +1,8 @@
-﻿using Finances.Core.Application.Favoreds.Commands.CreateFavored;
+﻿using Finances.Common.Data;
+using Finances.Core.Application.Favoreds.Commands.CreateFavored;
 using Finances.Core.Application.Favoreds.Queries.GetFavoredById;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +11,8 @@ namespace Finances.Api.Controllers
 {
     public class FavoredController : BaseController
     {
+        public FavoredController(IOptions<AppSettings> appSettings) : base(appSettings) { }
+
         [HttpGet]
         public Task<ActionResult<IEnumerable<string>>> GetAsync()
         {

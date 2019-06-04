@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Domain.Entities
 {
@@ -8,6 +6,6 @@ namespace Finances.Core.Domain.Entities
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public int Status { get; set; }
+        public Status Status { get; set; }
     }
 }

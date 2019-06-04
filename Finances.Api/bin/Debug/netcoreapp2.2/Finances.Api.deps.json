@@ -851,7 +851,8 @@
           "AutoMapper": "8.1.0",
           "FluentValidation": "8.4.0",
           "MediatR": "7.0.0",
-          "Microsoft.EntityFrameworkCore": "2.2.4"
+          "Microsoft.EntityFrameworkCore": "2.2.4",
+          "jose-jwt": "2.4.0"
         },
         "runtime": {
           "Finances.Common.dll": {}

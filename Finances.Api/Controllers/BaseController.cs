@@ -1,7 +1,9 @@
-﻿using MediatR;
+﻿using Finances.Common.Data;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Finances.Api.Controllers
 {
@@ -12,6 +14,13 @@ namespace Finances.Api.Controllers
     {
         private IMediator _mediator;
 
+        private IOptions<AppSettings> AppSettings;
+
         protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+        
+        public BaseController(IOptions<AppSettings> appSettings)
+        {
+            AppSettings = appSettings;
+        }
     }
 }
