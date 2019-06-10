@@ -31,5 +31,10 @@ namespace Finances.Common.Helpers
         {
             Credit = 0
         }
+
+        public enum AccountType
+        {
+            CurrentAccount = 0
+        }
     }
 }

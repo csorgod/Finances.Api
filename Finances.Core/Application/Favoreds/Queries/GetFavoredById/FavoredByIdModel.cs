@@ -13,24 +13,17 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
         public string TaxNumber { get; set; }
         public DateTime CreatedAt { get; set; }
         public FavoredByIdAccountModel Account { get; set; }
-
+        
         public static Expression<Func<Favored, FavoredByIdModel>> Projection
         {
             get
             {
-                return customer => new FavoredByIdModel
+                return favored => new FavoredByIdModel
                 {
-                    Id = customer.Id,
-                    Name = customer.Name,
-                    TaxNumber = customer.TaxNumber,
-                    CreatedAt = customer.CreatedDate,
-                    Account = new FavoredByIdAccountModel
-                    {
-                        Bank = customer.Account.Bank,
-                        BankBranch = customer.Account.BankBranch,
-                        BankAccount = customer.Account.BankAccount,
-                        BankAccountDigit = customer.Account.BankAccountDigit
-                    }
+                    Id = favored.Id,
+                    Name = favored.Name,
+                    TaxNumber = favored.TaxNumber,
+                    CreatedAt = favored.CreatedDate
                 };
             }
         }

@@ -1,6 +1,8 @@
 ﻿using Finances.Core.Application.Exceptions;
 using Finances.Core.Application.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +25,19 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
             if(favored == null)
                 throw new NotFoundException(request.Id);
 
-            return FavoredByIdModel.Create(favored);
+            var fav = FavoredByIdModel.Create(favored);
+
+            var account = await _context.FavoredHasAccount
+                .Where(fha => fha.FavoredId == favored.Id)
+                .Select(fha => fha.Account)
+                .SingleOrDefaultAsync();
+            
+            if (account == null)
+                return fav;
+
+            fav.Account = FavoredByIdAccountModel.Create(account);
+
+            return fav;
         }
     }
 }

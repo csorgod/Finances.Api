@@ -1,6 +1,5 @@
 ﻿using Finances.Core.Application.Interfaces;
 using Finances.Core.Domain.Entities;
-using Finances.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finances.Infrastructure.Persistence.DatabaseContext
@@ -66,9 +65,19 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
                 .Entity<Favored>()
                 .ToTable("favored", schema: "finances");
 
+            #region FavoredHasAccount
+
             modelBuilder
                 .Entity<FavoredHasAccount>()
                 .ToTable("favored_has_account", schema: "finances");
+
+            modelBuilder.Entity<FavoredHasAccount>()
+                .HasKey(fha => new { fha.AccountId, fha.FavoredId });
+
+            modelBuilder.Entity<FavoredHasAccount>()
+                .HasOne(fha => fha.Account);
+
+            #endregion
 
             modelBuilder
                 .Entity<UserHasAccount>()

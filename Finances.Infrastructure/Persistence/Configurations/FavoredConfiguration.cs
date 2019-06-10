@@ -1,9 +1,6 @@
 ﻿using Finances.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Finances.Infrastructure.Persistence.Configurations
 {
@@ -11,34 +8,35 @@ namespace Finances.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Favored> builder)
         {
-            builder.HasKey(f => f.Id);
-
+            builder
+                .HasKey(f => f.Id);
+            
             builder.Property(f => f.Id)
                 .HasColumnName("id")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
 
             builder.Property(f => f.BelongsToUserId)
                 .HasColumnName("belongs_to_user_id")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
 
             builder.Property(f => f.Name)
                 .HasColumnName("name")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(50)")
                 .HasMaxLength(50);
 
             builder.Property(f => f.TaxNumber)
                 .HasColumnName("tax_number")
-                .HasColumnType("varchar")
+                .HasColumnType("varchar(14)")
                 .HasMaxLength(14)
                 .IsRequired();
 
             builder.Property(f => f.Status)
                 .HasColumnName("status")
-                .HasColumnType("int")
+                .HasColumnType("int(1)")
                 .HasMaxLength(1)
                 .IsRequired();
 
