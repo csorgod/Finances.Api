@@ -7,9 +7,9 @@ using Microsoft.Extensions.Options;
 
 namespace Finances.Api.Controllers
 {
-    [Authorize]
+    
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public abstract class BaseController : ControllerBase
     {
         private IMediator _mediator;

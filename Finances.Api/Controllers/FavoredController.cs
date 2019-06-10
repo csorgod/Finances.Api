@@ -25,7 +25,7 @@ namespace Finances.Api.Controllers
             return Ok(await Mediator.Send(new GetFavoredById { Id = id }));
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("ByUserId/{userId}")]
         public Task<IActionResult> GetByUserId(Guid userId)
         {
             throw new NotImplementedException();

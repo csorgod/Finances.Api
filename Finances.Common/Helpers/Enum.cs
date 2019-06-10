@@ -26,5 +26,10 @@ namespace Finances.Common.Helpers
             variable = 1,
             detached = 2
         }
+
+        public enum CardType
+        {
+            Credit = 0
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Finances.Core.Application.Interfaces;
 using Finances.Core.Domain.Entities;
+using Finances.Infrastructure.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Finances.Infrastructure.Persistence.DatabaseContext
@@ -20,6 +21,70 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
         public DbSet<FavoredHasAccount> FavoredHasAccount { get; set; }
         public DbSet<UserHasAccount> UserHasAccount { get; set; }
         public DbSet<Incoming> Incoming { get; set; }
-        
+        public DbSet<Card> Card { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FinancesDbContext).Assembly);
+            
+            #region Table references
+
+            modelBuilder
+                .Entity<Person>()
+                .ToTable("person", schema: "finances");
+
+            modelBuilder
+                .Entity<User>()
+                .ToTable("user", schema: "finances");
+
+            modelBuilder
+                .Entity<UserHasPerson>()
+                .ToTable("user_has_person", schema: "finances");
+
+            modelBuilder
+                .Entity<Contact>()
+                .ToTable("contact", schema: "finances");
+
+            modelBuilder
+                .Entity<PersonHasContact>()
+                .ToTable("person_has_contact", schema: "finances");
+
+            modelBuilder
+                .Entity<LoginJwt>()
+                .ToTable("login_jwt", schema: "finances");
+
+            modelBuilder
+                .Entity<UserImage>()
+                .ToTable("user_image", schema: "finances");
+
+            modelBuilder
+                .Entity<Account>()
+                .ToTable("account", schema: "finances");
+
+            modelBuilder
+                .Entity<Favored>()
+                .ToTable("favored", schema: "finances");
+
+            modelBuilder
+                .Entity<FavoredHasAccount>()
+                .ToTable("favored_has_account", schema: "finances");
+
+            modelBuilder
+                .Entity<UserHasAccount>()
+                .ToTable("user_has_account", schema: "finances");
+
+            modelBuilder
+                .Entity<Incoming>()
+                .ToTable("incoming", schema: "finances");
+
+            modelBuilder
+                .Entity<Card>()
+                .ToTable("card", schema: "finances");
+
+            #endregion
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
