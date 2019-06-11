@@ -34,7 +34,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
             
             if (account == null)
                 return fav;
-
+            
             fav.Account = FavoredByIdAccountModel.Create(account);
 
             return fav;

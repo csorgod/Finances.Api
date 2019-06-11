@@ -1,8 +1,6 @@
 ﻿using Finances.Core.Domain.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
 {

@@ -5,54 +5,48 @@ using System;
 
 namespace Finances.Infrastructure.Persistence.Configurations
 {
-    public class FavoredConfiguration : IEntityTypeConfiguration<Favored>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Favored> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
-                .HasKey(f => f.Id);
-            
-            builder.Property(f => f.Id)
+                .HasKey(u => u.Id);
+
+            builder.Property(u => u.Id)
                 .HasColumnName("id")
                 .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
 
-            builder.Property(f => f.BelongsToUserId)
-                .HasColumnName("belongs_to_user_id")
-                .HasColumnType("varchar(36)")
-                .HasMaxLength(36)
+            builder.Property(u => u.Username)
+                .HasColumnName("username")
+                .HasColumnType("varchar(40)")
+                .HasMaxLength(40)
                 .IsRequired();
 
-            builder.Property(f => f.Name)
-                .HasColumnName("name")
-                .HasColumnType("varchar(50)")
-                .HasMaxLength(50);
-
-            builder.Property(f => f.TaxNumber)
-                .HasColumnName("tax_number")
-                .HasColumnType("varchar(14)")
-                .HasMaxLength(14)
+            builder.Property(u => u.Password)
+                .HasColumnName("password")
+                .HasColumnType("varchar(125)")
+                .HasMaxLength(125)
                 .IsRequired();
 
-            builder.Property(f => f.Status)
+            builder.Property(u => u.Status)
                 .HasColumnName("status")
                 .HasColumnType("int(1)")
                 .HasMaxLength(1)
                 .IsRequired();
 
-            builder.Property(f => f.CreatedDate)
+            builder.Property(u => u.CreatedDate)
                 .HasColumnName("created_date")
                 .HasColumnType("timestamp")
                 .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
-            builder.Property(f => f.UpdatedDate)
+            builder.Property(u => u.UpdatedDate)
                 .HasColumnName("updated_date")
                 .HasColumnType("timestamp")
                 .HasDefaultValue(DateTime.Now)
                 .IsRequired();
-
         }
     }
 }

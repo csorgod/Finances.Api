@@ -1,33 +1,33 @@
 ﻿using Finances.Common.Data;
+using Finances.Common.Interfaces;
 using Finances.Common.Session;
 using Jose;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System;
 using System.Text;
-using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Common.Helpers
 {
-    public class JwtManager
+    public class JwtManager : IJwtManager
     {
-        private static IOptions<AppSettings> Configuration;
+        private readonly AppSettings Configuration;
 
-        private static string secretPhrase = "auth_token_finances_2018";
+        private static string secretPhrase;
 
-        public JwtManager(IOptions<AppSettings> configuration)
+        public JwtManager(AppSettings configuration)
         {
             Configuration = configuration;
+            secretPhrase = Configuration.JwtSecret;
         }
 
-        public static string GenerateToken<T>(T viewModel)
+        public string GenerateToken<T>(T viewModel)
         {
             byte[] key = Encoding.ASCII.GetBytes(secretPhrase);
             string token = JWT.Encode(viewModel, key, JwsAlgorithm.HS256);
             return token;
         }
         
-        public static LoginJwt DecodeToken(string token)
+        public LoginJwt DecodeToken(string token)
         {
             byte[] secretInBytes = Encoding.ASCII.GetBytes(secretPhrase);
             string tokenDecoded = JWT.Decode(token, secretInBytes);

@@ -2,46 +2,47 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Finances.Infrastructure.Persistence.Configurations
 {
-    public class FavoredHasAccountConfiguration : IEntityTypeConfiguration<FavoredHasAccount>
+    public class PersonHasContactConfiguration : IEntityTypeConfiguration<PersonHasContact>
     {
-        public void Configure(EntityTypeBuilder<FavoredHasAccount> builder)
+        public void Configure(EntityTypeBuilder<PersonHasContact> builder)
         {
             builder
-               .HasKey(fha => fha.Id);
+               .HasKey(phc => phc.Id);
 
-            builder.Property(fha => fha.Id)
+            builder.Property(phc => phc.Id)
                 .HasColumnName("id")
                 .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
-
-            builder.Property(fha => fha.AccountId)
-                .HasColumnName("account_id")
+            
+            builder.Property(phc => phc.PersonId)
+                .HasColumnName("person_id")
                 .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
 
-            builder.Property(fha => fha.FavoredId)
-                .HasColumnName("favored_id")
+            builder.Property(phc => phc.ContactId)
+                .HasColumnName("contact_id")
                 .HasColumnType("varchar(36)")
                 .HasMaxLength(36)
                 .IsRequired();
 
-            builder.Property(fha => fha.CreatedDate)
+            builder.Property(phc => phc.CreatedDate)
                 .HasColumnName("created_date")
                 .HasColumnType("timestamp")
                 .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
-            builder.Property(fha => fha.UpdatedDate)
+            builder.Property(phc => phc.UpdatedDate)
                 .HasColumnName("updated_date")
                 .HasColumnType("timestamp")
                 .HasDefaultValue(DateTime.Now)
                 .IsRequired();
-
         }
     }
 }

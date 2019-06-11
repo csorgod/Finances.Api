@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Finances.Api.Controllers
 {
-    
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public abstract class BaseController : ControllerBase

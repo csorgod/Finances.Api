@@ -4,6 +4,7 @@ using Finances.Common.Session;
 using Finances.Core.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading;
@@ -17,11 +18,13 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
         private readonly IFinancesDbContext _context;
         private readonly IMediator _mediator;
         private readonly CryptoHelper cryptoHelper;
+        private readonly AppSettings Configuration;
 
-        public SignInHandler(IFinancesDbContext context, IMediator mediator)
+        public SignInHandler(IFinancesDbContext context, IMediator mediator, IOptions<AppSettings> configuration)
         {
             _context = context;
             _mediator = mediator;
+            Configuration = configuration.Value;
             cryptoHelper = new CryptoHelper();
         }
 
@@ -60,7 +63,9 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                 LoginBy = LoginMode.App
             };
 
-            string tokenJWT = JwtManager.GenerateToken(viewModel);
+            JwtManager jwtManager = new JwtManager(Configuration);
+
+            string tokenJWT = jwtManager.GenerateToken(viewModel);
 
             #region Saving JWT in the Database
 

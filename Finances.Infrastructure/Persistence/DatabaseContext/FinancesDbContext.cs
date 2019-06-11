@@ -31,11 +31,15 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
 
             modelBuilder
                 .Entity<Person>()
-                .ToTable("person", schema: "finances");
+                .ToTable("person", schema: "finances")
+                .HasIndex(p => p.TaxNumber)
+                .IsUnique();
 
             modelBuilder
                 .Entity<User>()
-                .ToTable("user", schema: "finances");
+                .ToTable("user", schema: "finances")
+                .HasIndex(u => u.Username)
+                .IsUnique();
 
             modelBuilder
                 .Entity<UserHasPerson>()
@@ -43,7 +47,9 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
 
             modelBuilder
                 .Entity<Contact>()
-                .ToTable("contact", schema: "finances");
+                .ToTable("contact", schema: "finances")
+                .HasIndex(c => c.Email)
+                .IsUnique();
 
             modelBuilder
                 .Entity<PersonHasContact>()

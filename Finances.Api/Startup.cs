@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Finances.Common.Data;
+using Finances.Common.Helpers;
+using Finances.Common.Interfaces;
 using Finances.Core.Application.Interfaces;
+using Finances.Infrastructure.Infrastructure;
 using Finances.Infrastructure.Persistence.DatabaseContext;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -34,6 +37,9 @@ namespace Finances.Api
 
             services.TryAddSingleton<IResponseCompressionProvider, ResponseCompressionProvider>();
 
+            services.AddTransient<INotificationService, NotificationService>();
+            services.AddSingleton<IJwtManager, JwtManager>();
+
             services
                 .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
                 .Configure<AppSettings>(appSettingsSection)
@@ -48,17 +54,18 @@ namespace Finances.Api
             var key = Encoding.ASCII.GetBytes(appSettings.JwtSecret);
 
             services
-                .AddAuthentication(x => { x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; })
-                .AddJwtBearer(x =>
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        RequireExpirationTime = false
                     };
                 });
 

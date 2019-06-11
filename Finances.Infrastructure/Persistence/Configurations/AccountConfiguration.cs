@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Finances.Infrastructure.Persistence.Configurations
 {
@@ -65,11 +63,13 @@ namespace Finances.Infrastructure.Persistence.Configurations
             builder.Property(a => a.CreatedDate)
                 .HasColumnName("created_date")
                 .HasColumnType("timestamp")
+                .HasDefaultValue(DateTime.Now)
                 .IsRequired();
 
             builder.Property(a => a.UpdatedDate)
                 .HasColumnName("updated_date")
                 .HasColumnType("timestamp")
+                .HasDefaultValue(DateTime.Now)
                 .IsRequired();
         }
     }
