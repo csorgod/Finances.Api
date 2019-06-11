@@ -1,6 +1,7 @@
 ﻿using Finances.Common.Data;
 using Finances.Core.Application.Favoreds.Commands.CreateFavored;
 using Finances.Core.Application.Favoreds.Queries.GetFavoredById;
+using Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -26,9 +27,9 @@ namespace Finances.Api.Controllers
         }
 
         [HttpGet("ByUserId/{userId}")]
-        public Task<IActionResult> GetByUserId(Guid userId)
+        public async Task<IActionResult> GetByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            return Ok(await Mediator.Send(new GetFavoredsByUserId { UserId = userId }));
         }
         
         [HttpPost]

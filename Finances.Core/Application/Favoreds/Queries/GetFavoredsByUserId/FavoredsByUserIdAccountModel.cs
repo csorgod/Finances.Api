@@ -2,20 +2,20 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
+namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
 {
-    public class FavoredByIdAccountModel
+    public class FavoredsByUserIdAccountModel
     {
         public int? Bank { get; set; }
         public int? BankBranch { get; set; }
         public int? BankAccount { get; set; }
         public int? BankAccountDigit { get; set; }
 
-        public static Expression<Func<Account, FavoredByIdAccountModel>> Projection
+        public static Expression<Func<Account, FavoredsByUserIdAccountModel>> Projection
         {
             get
             {
-                return Account => new FavoredByIdAccountModel
+                return Account => new FavoredsByUserIdAccountModel
                 {
                     Bank = Account.Bank,
                     BankBranch = Account.BankBranch,
@@ -25,7 +25,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
             }
         }
 
-        public static FavoredByIdAccountModel Create(Account account)
+        public static FavoredsByUserIdAccountModel Create(Account account)
         {
             return Projection.Compile().Invoke(account);
         }

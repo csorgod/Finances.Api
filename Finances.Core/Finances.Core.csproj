@@ -19,7 +19,6 @@
   <ItemGroup>
     <Folder Include="Application\Accounts\Queries\" />
     <Folder Include="Application\Authorization\Queries\" />
-    <Folder Include="Application\Favoreds\Queries\GetFavoredsByUserId\" />
   </ItemGroup>
 
   <ItemGroup>
