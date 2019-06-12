@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Finances.Core.Domain.Entities
 {
@@ -8,7 +6,11 @@ namespace Finances.Core.Domain.Entities
     {
         public string UserId { get; set; }
         public string AccountId { get; set; }
+
+        [ForeignKey("UserId")]
         public User User { get; set; }
+
+        [ForeignKey("AccountId")]
         public Account Account { get; set; }
     }
 }

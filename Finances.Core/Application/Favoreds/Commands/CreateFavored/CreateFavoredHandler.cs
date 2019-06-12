@@ -26,62 +26,73 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
         {
             bool registerAuthorized = false;
 
-            var favoredAlreadyRegistered = await _context.Favored
+            try
+            {
+                var favoredAlreadyRegistered = await _context.Favored
                 .Where(f => f.TaxNumber == request.TaxNumber
                 && f.Status == Status.Active
                 && f.BelongsToUserId == request.BelongToUserId)
                 .SingleOrDefaultAsync();
 
-            if (favoredAlreadyRegistered == null)
-                registerAuthorized = true;
-            else
-            {
-                if (request.Account != null)
-                {
-                    IList<Account> favoredAccounts = await _context.FavoredHasAccount
-                    .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
-                    .Select(fha => fha.Account)
-                    .ToListAsync();
-
-                    if (favoredAccounts.Count > 0)
-                    {
-                        var favoredAccount = favoredAccounts
-                        .Where(a => a.BankAccount == request.Account.BankAccount)
-                        .SingleOrDefault();
-
-                        if (favoredAccount != null)
-                            return new JsonDefaultResponse
-                            {
-                                Success = false,
-                                Message = "Esse favorecido já possui essa conta cadastrada no sistema"
-                            };
-
-                        registerAuthorized = true;
-                    }
-                }
+                if (favoredAlreadyRegistered == null)
+                    registerAuthorized = true;
                 else
                 {
-                    IList<Account> favoredAccounts = await _context.FavoredHasAccount
-                    .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
-                    .Select(fha => fha.Account)
-                    .ToListAsync();
-
-                    if (favoredAccounts.Count > 0)
+                    if (request.Account != null)
                     {
-                        var favoredAccount = favoredAccounts
-                        .Where(a => a.BankAccount == request.Account.BankAccount)
-                        .SingleOrDefault();
+                        IList<Account> favoredAccounts = await _context.FavoredHasAccount
+                        .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
+                        .Select(fha => fha.Account)
+                        .ToListAsync();
 
-                        if (favoredAccount != null)
+                        if (favoredAccounts.Count > 0)
+                        {
+                            var favoredAccount = favoredAccounts
+                            .Where(a => a.BankAccount == request.Account.BankAccount)
+                            .SingleOrDefault();
+
+                            if (favoredAccount != null)
+                                return new JsonDefaultResponse
+                                {
+                                    Success = false,
+                                    Message = "Esse favorecido já possui essa conta cadastrada no sistema"
+                                };
+
                             registerAuthorized = true;
-                        else
-                            return new JsonDefaultResponse
-                            {
-                                Success = false,
-                                Message = "Um favorecido igual a esse sem conta cadastrada já foi registrado no sistema"
-                            };
+                        }
+                    }
+                    else
+                    {
+                        IList<Account> favoredAccounts = await _context.FavoredHasAccount
+                        .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
+                        .Select(fha => fha.Account)
+                        .ToListAsync();
+
+                        if (favoredAccounts.Count > 0)
+                        {
+                            var favoredAccount = favoredAccounts
+                            .Where(a => a.BankAccount == request.Account.BankAccount)
+                            .SingleOrDefault();
+
+                            if (favoredAccount != null)
+                                registerAuthorized = true;
+                            else
+                                return new JsonDefaultResponse
+                                {
+                                    Success = false,
+                                    Message = "Um favorecido igual a esse sem conta cadastrada já foi registrado no sistema"
+                                };
+                        }
                     }
                 }
+            }
+            catch
+            {
+                return new JsonDefaultResponse
+                {
+                    Success = false,
+                    Message = "Houve um problema em validar o favorecido antes de cadastrá-lo."
+                };
             }
 
             if (registerAuthorized)

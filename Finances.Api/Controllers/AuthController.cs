@@ -1,4 +1,5 @@
 ﻿using Finances.Common.Data;
+using Finances.Core.Application.Accounts.Commands;
 using Finances.Core.Application.Authorization.Commands.SignIn;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,14 @@ namespace Finances.Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody]SignIn loginData)
+        public async Task<IActionResult> SignIn([FromBody]SignIn loginData)
         {
             return Ok(await Mediator.Send(loginData));
+        }
+
+        public async Task<IActionResult> CreateAccount([FromBody]CreateAccount newAccount)
+        {
+            return Ok(await Mediator.Send(newAccount));
         }
     }
 }

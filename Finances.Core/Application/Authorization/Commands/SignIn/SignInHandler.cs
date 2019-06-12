@@ -63,7 +63,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                 LoginBy = LoginMode.App
             };
 
-            JwtManager jwtManager = new JwtManager(Configuration);
+            Common.Helpers.JwtManager jwtManager = new Common.Helpers.JwtManager(Configuration);
 
             string tokenJWT = jwtManager.GenerateToken(viewModel);
 

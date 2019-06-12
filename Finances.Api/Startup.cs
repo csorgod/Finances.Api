@@ -38,6 +38,7 @@ namespace Finances.Api
             services.TryAddSingleton<IResponseCompressionProvider, ResponseCompressionProvider>();
 
             services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<CryptoHelper, CryptoHelper>();
             services.AddSingleton<IJwtManager, JwtManager>();
 
             services
