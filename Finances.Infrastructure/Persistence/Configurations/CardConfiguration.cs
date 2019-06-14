@@ -31,7 +31,7 @@ namespace Finances.Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(c => c.Holder)
-                .HasColumnName("person_id")
+                .HasColumnName("holder")
                 .HasColumnType("varchar(30)")
                 .HasMaxLength(30)
                 .IsRequired();

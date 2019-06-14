@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Application.Accounts.Commands
 {
-    class AccountHandler : IRequestHandler<CreateAccount, Unit>
+    public class AccountHandler : IRequestHandler<CreateAccount, Unit>
     {
         private readonly IFinancesDbContext _context;
         private readonly IMediator _mediator;

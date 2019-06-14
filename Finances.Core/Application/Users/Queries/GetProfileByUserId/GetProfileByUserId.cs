@@ -3,9 +3,9 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 
-namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
+namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
 {
-    public class GetFavoredsByUserId : IRequest<JsonDefaultResponse>
+    public class GetProfileByUserId : IRequest<JsonDefaultResponse>
     {
         public Guid UserId { get; set; }
     }

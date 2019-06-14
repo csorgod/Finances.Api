@@ -14,12 +14,6 @@ namespace Finances.Api.Controllers
     public class FavoredController : BaseController
     {
         public FavoredController(IOptions<AppSettings> appSettings) : base(appSettings) { }
-
-        [HttpGet]
-        public Task<ActionResult<IEnumerable<string>>> GetAsync()
-        {
-            throw new NotImplementedException();
-        }
         
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -27,10 +21,10 @@ namespace Finances.Api.Controllers
             return Ok(await Mediator.Send(new GetFavoredById { Id = id }));
         }
 
-        [HttpGet("ByUserId/{userId}")]
-        public async Task<IActionResult> GetByUserId(Guid userId)
+        [HttpGet("ByUserId")]
+        public async Task<IActionResult> GetByUserId()
         {
-            return Ok(await Mediator.Send(new GetFavoredsByUserId { UserId = userId }));
+            return Ok(await Mediator.Send(new GetFavoredsByUserId { UserId = UserLogged.UserId }));
         }
         
         [HttpPost]
@@ -38,13 +32,7 @@ namespace Finances.Api.Controllers
         {
             return Ok(await Mediator.Send(value));
         }
-        
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-            throw new NotImplementedException();
-        }
-        
+                
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

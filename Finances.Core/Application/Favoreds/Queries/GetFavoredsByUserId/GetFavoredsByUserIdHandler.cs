@@ -1,4 +1,5 @@
-﻿using Finances.Core.Application.Exceptions;
+﻿using Finances.Common.Data;
+using Finances.Core.Application.Exceptions;
 using Finances.Core.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
 {
-    public class GetFavoredsByUserIdHandler : IRequestHandler<GetFavoredsByUserId, IList<FavoredsByUserIdModel>>
+    public class GetFavoredsByUserIdHandler : IRequestHandler<GetFavoredsByUserId, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
 
@@ -18,7 +19,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
             _context = context;
         }
 
-        public async Task<IList<FavoredsByUserIdModel>> Handle(GetFavoredsByUserId request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(GetFavoredsByUserId request, CancellationToken cancellationToken)
         {
             var favoredList = new List<FavoredsByUserIdModel>();
 
@@ -27,9 +28,13 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
                 .ToListAsync();
 
             if (favoreds.Count == 0)
-                throw new NotFoundException(request.UserId);
+                return new JsonDefaultResponse
+                {
+                    Success = true,
+                    Message = "Nenhum favorecido encontrado"
+                };
 
-            foreach(var favored in favoreds)
+            foreach (var favored in favoreds)
             {
                 var fav = FavoredsByUserIdModel.Create(favored);
 
@@ -46,7 +51,11 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
                 favoredList.Add(fav);
             }
 
-            return favoredList;
+            return new JsonDefaultResponse
+            {
+                Success = true,
+                Payload = favoredList
+            };
         }
     }
 }

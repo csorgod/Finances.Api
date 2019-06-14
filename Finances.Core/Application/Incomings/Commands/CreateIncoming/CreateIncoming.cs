@@ -1,22 +1,19 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Finances.Common.Data;
+using MediatR;
+using System;
 using static Finances.Common.Helpers.Enum;
 
-namespace Finances.Core.Domain.Entities
+namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
 {
-    public class Incoming : BaseEntity
+    public class CreateIncoming : IRequest<JsonDefaultResponse>
     {
+        public Guid PersonId { get; set; }
+        public Guid UserId { get; set; }
         public IncomeType IncomeType { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Value { get; set; }
-        public Status Status { get; set; }
         public DateTime ReceiveAt { get; set; }
         public bool Recurrent { get; set; }
-
-        public Guid PersonId { get; set; }
-
-        [ForeignKey("PersonId")]
-        public Person Person { get; set; }
     }
 }

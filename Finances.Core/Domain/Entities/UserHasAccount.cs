@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Finances.Core.Domain.Entities
 {
     public class UserHasAccount : BaseEntity
     {
-        public string UserId { get; set; }
-        public string AccountId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid AccountId { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }
