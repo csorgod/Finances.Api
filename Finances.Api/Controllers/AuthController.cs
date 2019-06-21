@@ -13,15 +13,15 @@ namespace Finances.Api.Controllers
     {
         public AuthController(IOptions<AppSettings> appSettings) : base(appSettings) { }
 
-        [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn([FromBody]SignIn loginData)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]SignIn loginData)
         {
             return Ok(await Mediator.Send(loginData));
         }
 
-        [HttpPost]
         [AllowAnonymous]
+        [HttpPost("CreateAccount")]
         public async Task<IActionResult> CreateAccount([FromBody]CreateAccount newAccount)
         {
             return Ok(await Mediator.Send(newAccount));

@@ -31,8 +31,8 @@ namespace Finances.Api.Controllers
 
         public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var allow = context.Controller.GetType().GetMethod(ControllerContext.ActionDescriptor.ActionName).GetCustomAttributes(typeof(AllowAnonymousAttribute), true);
-            if (allow.ToList().Count() == 0)
+            var allow = context.Controller.GetType().GetMethod(ControllerContext.ActionDescriptor.ActionName).GetCustomAttributes(typeof(AllowAnonymousAttribute), true).ToList();
+            if (allow.Count() == 0)
             {
                 UserLogged = new LoginJwt
                 {
