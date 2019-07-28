@@ -50,12 +50,12 @@ namespace Finances.Core.Application.Favoreds.Commands.DeleteFavored
 
                     accountToDelete.Status = Status.Inactive;
                     //accountToDelete.updated_date = DateTime.Now; TODO: Validar a data de cancelamento
-                    _context.Account.Add(accountToDelete);
+                    _context.Account.Update(accountToDelete);
                 }
 
                 favoredToDelete.Status = Status.Inactive;
                 //favoredToDelete.UpdatedDate = DateTime.Now; TODO: Validar a data de cancelamento
-                _context.Favored.Add(favoredToDelete);
+                _context.Favored.Update(favoredToDelete);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return new JsonDefaultResponse

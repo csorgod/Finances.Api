@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
 {
@@ -24,7 +25,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
             var favoredList = new List<FavoredsByUserIdModel>();
 
             var favoreds = await _context.Favored
-                .Where(f => f.BelongsToUserId == request.UserId)
+                .Where(f => f.BelongsToUserId == request.UserId && f.Status == Status.Active)
                 .ToListAsync();
 
             if (favoreds.Count == 0)

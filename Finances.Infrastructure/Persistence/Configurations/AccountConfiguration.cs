@@ -31,7 +31,7 @@ namespace Finances.Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(a => a.BankAccount)
-                .HasColumnName("bank_branch")
+                .HasColumnName("bank_account")
                 .HasColumnType("int(4)")
                 .HasMaxLength(4)
                 .IsRequired();

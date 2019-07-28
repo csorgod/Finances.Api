@@ -3,6 +3,7 @@ using Finances.Core.Application.Interfaces;
 using Finances.Core.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -32,61 +33,68 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
                 .Where(f => f.TaxNumber == request.TaxNumber
                 && f.Status == Status.Active
                 && f.BelongsToUserId == request.BelongToUserId)
-                .SingleOrDefaultAsync();
+                .ToListAsync();
 
-                if (favoredAlreadyRegistered == null)
+                if (favoredAlreadyRegistered.Count == 0)
                     registerAuthorized = true;
                 else
                 {
                     if (request.Account != null)
                     {
-                        IList<Account> favoredAccounts = await _context.FavoredHasAccount
-                        .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
-                        .Select(fha => fha.Account)
-                        .ToListAsync();
-
-                        if (favoredAccounts.Count > 0)
+                        foreach(var favored in favoredAlreadyRegistered)
                         {
-                            var favoredAccount = favoredAccounts
-                            .Where(a => a.BankAccount == request.Account.BankAccount)
-                            .SingleOrDefault();
+                            var favoredAccounts = await _context.FavoredHasAccount
+                            .Where(fha => fha.FavoredId == favored.Id)
+                            .Select(fha => fha.Account)
+                            .ToListAsync();
 
-                            if (favoredAccount != null)
-                                return new JsonDefaultResponse
-                                {
-                                    Success = false,
-                                    Message = "Esse favorecido já possui essa conta cadastrada no sistema"
-                                };
+                            if (favoredAccounts.Count > 0)
+                            {
+                                var favoredAccount = favoredAccounts
+                                .Where(a => a.BankAccount == request.Account.BankAccount)
+                                .SingleOrDefault();
 
-                            registerAuthorized = true;
+                                if (favoredAccount != null)
+                                    return new JsonDefaultResponse
+                                    {
+                                        Success = false,
+                                        Message = "Já existe um favorecido cadastrado com essa conta no sistema"
+                                    };
+                            }
                         }
+
+                        registerAuthorized = true;
                     }
                     else
                     {
-                        IList<Account> favoredAccounts = await _context.FavoredHasAccount
-                        .Where(fha => fha.FavoredId == favoredAlreadyRegistered.Id)
-                        .Select(fha => fha.Account)
-                        .ToListAsync();
 
-                        if (favoredAccounts.Count > 0)
+                        foreach (var favored in favoredAlreadyRegistered)
                         {
-                            var favoredAccount = favoredAccounts
-                            .Where(a => a.BankAccount == request.Account.BankAccount)
-                            .SingleOrDefault();
+                            var favoredAccounts = await _context.FavoredHasAccount
+                            .Where(fha => fha.FavoredId == favored.Id)
+                            .Select(fha => fha.Account)
+                            .ToListAsync();
 
-                            if (favoredAccount != null)
-                                registerAuthorized = true;
-                            else
-                                return new JsonDefaultResponse
-                                {
-                                    Success = false,
-                                    Message = "Um favorecido igual a esse sem conta cadastrada já foi registrado no sistema"
-                                };
+                            if (favoredAccounts.Count > 0)
+                            {
+                                var favoredAccount = favoredAccounts
+                                .Where(a => a.BankAccount == request.Account.BankAccount)
+                                .SingleOrDefault();
+
+                                if (favoredAccount == null)
+                                    return new JsonDefaultResponse
+                                    {
+                                        Success = false,
+                                        Message = "Um favorecido igual a esse sem conta cadastrada já foi registrado no sistema"
+                                    };
+                            }
                         }
+
+                        registerAuthorized = true;
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 return new JsonDefaultResponse
                 {
@@ -127,7 +135,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
                         _context.Account.Add(account);
                         _context.FavoredHasAccount.Add(favored_has_account);
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         return new JsonDefaultResponse
                         {
@@ -144,7 +152,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
 
                     await _mediator.Publish(new FavoredCreated { Id = favored.Id }, cancellationToken);
                 }
-                catch
+                catch (Exception ex)
                 {
                     return new JsonDefaultResponse
                     {

@@ -32,10 +32,7 @@ namespace Finances.Api.Controllers
         {
             return Ok(await Mediator.Send(value));
         }
-
-        [HttpPost("")]
-        public async Task<IActionResult> Create([FromBody]CreateFavored value)
-
+        
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
