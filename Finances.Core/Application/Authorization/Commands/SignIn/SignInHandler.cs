@@ -41,7 +41,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                     Message = "Login e/ou senha incorretos."
                 };
 
-            if (!cryptoHelper.Valid(request.Password, login.Password))
+            if (!cryptoHelper.IsValid(request.Password, login.Password))
                 return new JsonDefaultResponse
                 {
                     Success = false,
