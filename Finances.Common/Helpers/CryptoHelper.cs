@@ -1,61 +1,57 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using Konscious.Security.Cryptography;
 
 namespace Finances.Common.Helpers
 {
     public class CryptoHelper
     {
-        public const int SaltByteSize = 24;
-        public const int HashByteSize = 512 / 8;
-        public const int Pbkdf2Iterations = 10000;
+        private int _degreeOfParallelism = 2;
+        private int _iterations = 16;
+        private int _memorySize = 1024;
+        private int _hashLength = 128;
+        private int _saltByteSize = 24;
 
-        private byte[] GenerateSalt()
+        private string GenerateSalt()
         {
-            RNGCryptoServiceProvider cryptoProvider = new RNGCryptoServiceProvider();
-            byte[] salt = new byte[SaltByteSize];
+            var cryptoProvider = new RNGCryptoServiceProvider();
+            var salt = new byte[_saltByteSize];
             cryptoProvider.GetBytes(salt);
-            return salt;
+            return Convert.ToBase64String(salt);
         }
 
-        public string Encrypt(string str)
+        private string GenerateArgon2idHash(string password, string salt)
         {
-            byte[] salt = this.GenerateSalt();
-            byte[] hash = this.GetPbkdf2(str, salt);
-            return $"{Convert.ToBase64String(salt)}:{Convert.ToBase64String(hash)}";
+            var saltBytes = Encoding.UTF8.GetBytes(salt);
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+
+            var argon2id = new Argon2id(passwordBytes);
+            argon2id.DegreeOfParallelism = _degreeOfParallelism;
+            argon2id.Iterations = _iterations;
+            argon2id.MemorySize = _memorySize;
+            argon2id.Salt = saltBytes;
+
+            var hash = argon2id.GetBytes(_hashLength);
+            return Convert.ToBase64String(hash);
         }
 
-        private byte[] GetPbkdf2(string str, byte[] salt)
+        public string Encrypt(string password, string salt = "")
         {
-            byte[] hash = KeyDerivation.Pbkdf2(
-                password: str,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA512,
-                iterationCount: Pbkdf2Iterations,
-                numBytesRequested: HashByteSize);
-            return hash;
+            // TODO: return tuple (salt, password) instead of splitable string
+            salt = GenerateSalt();
+            return $"{salt}:{GenerateArgon2idHash(password, salt)}";
         }
 
-        public bool Valid(string str, string originalHashWithSalt)
+        // TODO: Change database so we can stop using the "split" logic and can receive salt directly as a parameter
+        public bool IsValid(string passwordFromInput, string hashedPasswordFromDB, string salt = "")
         {
-            char[] delimiter = { ':' };
-            string[] split = originalHashWithSalt.Split(delimiter);
-            byte[] salt = Convert.FromBase64String(split[0]);
-            byte[] originalHash = Convert.FromBase64String(split[1]);
-            byte[] hashTest = this.GetPbkdf2(str, salt);
-            return this.SlowEquals(originalHash, hashTest);
-        }
+            var saltAndPasswordHash = hashedPasswordFromDB.Split(':');
+            salt = saltAndPasswordHash[0];
+            hashedPasswordFromDB = saltAndPasswordHash[1];
 
-        private bool SlowEquals(byte[] a, byte[] b)
-        {
-            uint diff = (uint)a.Length ^ (uint)b.Length;
-            for (int i = 0; i < a.Length && i < b.Length; i++)
-            {
-                diff |= (uint)(a[i] ^ b[i]);
-            }
-            return diff == 0;
+            return hashedPasswordFromDB == GenerateArgon2idHash(passwordFromInput, salt);
         }
     }
 }
