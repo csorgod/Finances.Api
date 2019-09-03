@@ -25,7 +25,7 @@ create table `finances`.`user`
 (
 	`id` varchar(36) not null primary key,
     `username` varchar(40) not null,
-    `password` varchar(125) not null,
+    `password` varchar(256) not null,
     `status` int(1) not null,
     `created_date` timestamp default current_timestamp not null,
     `updated_date` timestamp default current_timestamp not null,
