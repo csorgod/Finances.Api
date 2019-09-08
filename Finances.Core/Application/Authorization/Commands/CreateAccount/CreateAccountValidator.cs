@@ -22,7 +22,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             RuleFor(x => x.ImagePath).Length(500).Must(BeAValidUrl).WithMessage("O e-mail informado não é válido");
         }
 
-        private bool BeMaleOrFemale(char gender) => gender.ToLower() == 'm' || gender.ToLower() == 'f';
+        private bool BeMaleOrFemale(char gender) => Char.ToLower(gender) == 'm' || Char.ToLower(gender) == 'f';
 
         private bool DontHaveMask(string phone)
         {
