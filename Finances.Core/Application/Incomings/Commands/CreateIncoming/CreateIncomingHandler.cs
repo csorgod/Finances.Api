@@ -28,11 +28,11 @@ namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
         {
             try
             {
-                var person = await _context.UserHasPerson
+                var userHasPerson = await _context.UserHasPerson
                 .Where(uhp => uhp.UserId == request.UserId)
                 .SingleOrDefaultAsync();
 
-                if (person == null)
+                if (userHasPerson == null)
                     return new JsonDefaultResponse
                     {
                         Success = false,
@@ -41,7 +41,7 @@ namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
 
                 var incoming = new Incoming
                 {
-                    PersonId = person.Id,
+                    PersonId = userHasPerson.PersonId,
                     IncomeType = request.IncomeType,
                     Name = request.Name,
                     Description = request.Description,
