@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Finances.Common.Helpers.Enum;
+using Resx = Finances.Common.Resources;
 
 namespace Finances.Core.Application.Authorization.Commands.SignIn
 {
@@ -38,21 +39,21 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "Login e/ou senha incorretos."
+                    Message = Resx.Strings.LoginAndOrPasswordIncorrect
                 };
 
             if (!cryptoHelper.IsValid(request.Password, login.Password))
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "A senha informada está incorreta."
+                    Message = Resx.Strings.PasswordInformedIsIncorrect
                 };
 
             if (login.Status != Status.Active)
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "Esse usuário não possui permissão de acesso."
+                    Message = Resx.Strings.UserDoesntHaveAccessPermission
                 };
 
             var viewModel = new LoginJwt
@@ -102,7 +103,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "Houve um erro ao salvar o token de autenticação."
+                    Message = Resx.Strings.ErrorSaveAuthToken
                 };
             }
 
@@ -123,7 +124,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
             return new JsonDefaultResponse
             {
                 Success = true,
-                Message = "Login autorizado.",
+                Message = Resx.Strings.LoginAuthorized,
                 Payload = new UserAuth
                 {
                     JwtToken = tokenJWT,
