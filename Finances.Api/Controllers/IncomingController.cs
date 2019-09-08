@@ -20,7 +20,8 @@ namespace Finances.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateIncoming value)
         {
-            return Ok(await Mediator.Send(value));
+            var result = await Mediator.Send(value);
+            return StatusCode(result.StatusCode, result);
         }
     }
 }

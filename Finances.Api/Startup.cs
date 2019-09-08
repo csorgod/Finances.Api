@@ -2,7 +2,9 @@
 using Finances.Common.Data;
 using Finances.Common.Helpers;
 using Finances.Common.Interfaces;
+using Finances.Core.Application;
 using Finances.Core.Application.Interfaces;
+using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Infrastructure.Infrastructure;
 using Finances.Infrastructure.Persistence.DatabaseContext;
 using MediatR;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Text;
+using FluentValidation;
 
 namespace Finances.Api
 {
@@ -40,6 +43,8 @@ namespace Finances.Api
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<CryptoHelper, CryptoHelper>();
             services.AddSingleton<IJwtManager, JwtManager>();
+            services.AddScoped<CreateIncomingValidator, CreateIncomingValidator>();
+            services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
 
             services
                 .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
@@ -50,6 +55,8 @@ namespace Finances.Api
                 .AddMvc()
                 .AddJsonOptions(options => { options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.JwtSecret);
