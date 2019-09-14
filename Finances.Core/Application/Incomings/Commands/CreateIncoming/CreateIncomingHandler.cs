@@ -17,13 +17,11 @@ namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
     {
         private readonly IFinancesDbContext _context;
         private readonly IMediator _mediator;
-        private readonly CreateIncomingValidator _validator;
 
-        public CreateIncomingHandler(IFinancesDbContext context, IMediator mediator, CreateIncomingValidator validator)
+        public CreateIncomingHandler(IFinancesDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;
-            _validator = validator;
         }
 
         public async Task<JsonDefaultResponse> Handle(CreateIncoming request, CancellationToken cancellationToken)

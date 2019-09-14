@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using Finances.Common.Data;
+﻿using Finances.Common.Data;
 using Finances.Common.Helpers;
 using Finances.Common.Interfaces;
 using Finances.Core.Application;
 using Finances.Core.Application.Interfaces;
-using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Infrastructure.Infrastructure;
 using Finances.Infrastructure.Persistence.DatabaseContext;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,9 +15,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.Text;
+
+using AutoMapper;
+using MediatR;
+using Newtonsoft.Json;
 using FluentValidation;
+
+using Finances.Core.Application.Authorization.Commands.SignIn;
+using Finances.Core.Application.Incomings.Commands.CreateIncoming;
+using Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId;
 
 namespace Finances.Api
 {
@@ -43,8 +47,11 @@ namespace Finances.Api
             services.AddTransient<INotificationService, NotificationService>();
             services.AddTransient<CryptoHelper, CryptoHelper>();
             services.AddSingleton<IJwtManager, JwtManager>();
-            services.AddScoped<CreateIncomingValidator, CreateIncomingValidator>();
+
             services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
+            services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
+            services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
+            
 
             services
                 .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))

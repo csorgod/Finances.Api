@@ -9,8 +9,11 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
     {
         public SignInValidator()
         {
-            RuleFor(x => x.Username).MaximumLength(40).Empty().WithMessage("O Usuário informado está incorreto");
-            RuleFor(x => x.Password).Empty().WithMessage("A senha informada está incorreto");
+            RuleFor(x => x.Username)
+                .MaximumLength(40).WithMessage("O usuário não pode ter mais de 40 caracteres")
+                .NotEmpty().WithMessage("O usuário não pode estar vazio");
+            RuleFor(x => x.Password)
+                .NotEmpty().WithMessage("A senha não pode estar vazia");
         }
     }
 }
