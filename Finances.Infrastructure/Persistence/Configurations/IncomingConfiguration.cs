@@ -43,7 +43,7 @@ namespace Finances.Infrastructure.Persistence.Configurations
 
             builder.Property(i => i.Value)
                 .HasColumnName("value")
-                .HasColumnType("double")
+                .HasColumnType("decimal(8,2)")
                 .IsRequired();
 
             builder.Property(i => i.Status)

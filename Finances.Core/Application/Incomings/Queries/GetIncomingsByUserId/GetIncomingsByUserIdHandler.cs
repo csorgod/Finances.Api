@@ -21,13 +21,11 @@ namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
 
         public async Task<JsonDefaultResponse> Handle(GetIncomingsByUserId request, CancellationToken cancellationToken)
         {
-            var incomingsList = new List<IncomingsByUserIdModel>();
+            var userHasPerson = await _context.UserHasPerson
+                .Where(uhp => uhp.UserId == request.UserId)
+                .SingleOrDefaultAsync();
 
-            var person = await _context.UserHasPerson
-            .Where(uhp => uhp.UserId == request.UserId)
-            .SingleOrDefaultAsync();
-
-            if (person == null)
+            if (userHasPerson == null)
                 return new JsonDefaultResponse
                 {
                     Success = false,
@@ -35,14 +33,9 @@ namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
                 };
 
             var incomings = await _context.Incoming
-            .Where(i => i.PersonId == person.Id && i.Status == Status.Active)
-            .ToListAsync();
-
-            foreach(var incoming in incomings)
-            {
-                var inc = IncomingsByUserIdModel.Create(incoming);
-                incomingsList.Add(inc);
-            }
+                .Where(i => i.PersonId == userHasPerson.PersonId && i.Status == Status.Active)
+                .Select(i => IncomingsByUserIdModel.Create(i))
+                .ToListAsync();
 
             return new JsonDefaultResponse
             {
