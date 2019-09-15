@@ -53,10 +53,7 @@ namespace Finances.Api
 
             services.AddScoped<IFinancesDbContext, FinancesDbContext>();
 
-            services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
-            services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
-            services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
-            services.AddScoped<AbstractValidator<CreateAccount>, CreateAccountValidator>();
+            AddValidatorsInjection(services);
             
             services
                 // .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
@@ -88,7 +85,29 @@ namespace Finances.Api
                         RequireExpirationTime = false
                     };
                 });
+        }
 
+        private void AddValidatorsInjection(IServiceCollection services)
+        {
+            //TODO: Add all validator injections here
+            #region Accounts
+            #endregion
+
+            #region Authorization
+            services.AddScoped<AbstractValidator<CreateAccount>, CreateAccountValidator>();
+            services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
+            #endregion
+
+            #region Exceptions
+            #endregion
+
+            #region Favored
+            #endregion
+
+            #region Incomings
+            services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
+            services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
+            #endregion            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
