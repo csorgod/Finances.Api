@@ -1,11 +1,4 @@
-﻿using Finances.Common.Data;
-using Finances.Common.Helpers;
-using Finances.Common.Interfaces;
-using Finances.Core.Application;
-using Finances.Core.Application.Interfaces;
-using Finances.Infrastructure.Infrastructure;
-using Finances.Infrastructure.Persistence.DatabaseContext;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +15,19 @@ using MediatR;
 using Newtonsoft.Json;
 using FluentValidation;
 
+using Finances.Common.Data;
+using Finances.Common.Helpers;
+using Finances.Common.Interfaces;
+using Finances.Core.Application;
+using Finances.Core.Application.Interfaces;
+
 using Finances.Core.Application.Authorization.Commands.SignIn;
+using Finances.Core.Application.Authorization.Commands.CreateAccount;
 using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId;
+
+using Finances.Infrastructure.Infrastructure;
+using Finances.Infrastructure.Persistence.DatabaseContext;
 
 namespace Finances.Api
 {
@@ -48,13 +51,15 @@ namespace Finances.Api
             services.AddTransient<CryptoHelper, CryptoHelper>();
             services.AddSingleton<IJwtManager, JwtManager>();
 
+            services.AddScoped<IFinancesDbContext, FinancesDbContext>();
+
             services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
             services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
             services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
+            services.AddScoped<AbstractValidator<CreateAccount>, CreateAccountValidator>();
             
-
             services
-                .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
+                // .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
                 .Configure<AppSettings>(appSettingsSection)
                 .AddAutoMapper()
                 .AddMediatR()
