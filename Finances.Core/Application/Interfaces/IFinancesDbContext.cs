@@ -20,6 +20,7 @@ namespace Finances.Core.Application.Interfaces
         DbSet<FavoredHasAccount> FavoredHasAccount { get; set; }
         DbSet<UserHasAccount> UserHasAccount { get; set; }
         DbSet<Incoming> Incoming { get; set; }
+        DbSet<Expense> Expense { get; set; }
         
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;

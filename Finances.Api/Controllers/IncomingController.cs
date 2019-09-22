@@ -14,7 +14,8 @@ namespace Finances.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetByUserId()
         {
-            return Ok(await Mediator.Send(new GetIncomingsByUserId { UserId = UserLogged.UserId }));
+            var result = await Mediator.Send(new GetIncomingsByUserId { UserId = UserLogged.UserId });
+            return StatusCode(result.StatusCode, result);
         }
 
         [HttpPost]

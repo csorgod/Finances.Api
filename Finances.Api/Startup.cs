@@ -23,8 +23,11 @@ using Finances.Core.Application.Interfaces;
 
 using Finances.Core.Application.Authorization.Commands.SignIn;
 using Finances.Core.Application.Authorization.Commands.CreateAccount;
+
 using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId;
+
+using Finances.Core.Application.Expenses.Queries.GetExpensesByUserId;
 
 using Finances.Infrastructure.Infrastructure;
 using Finances.Infrastructure.Persistence.DatabaseContext;
@@ -54,6 +57,7 @@ namespace Finances.Api
             services.AddScoped<IFinancesDbContext, FinancesDbContext>();
 
             AddValidatorsInjection(services);
+            ConfigureAutoMapper();
             
             services
                 // .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
@@ -87,6 +91,13 @@ namespace Finances.Api
                 });
         }
 
+        private void ConfigureAutoMapper()
+        {
+            var configuration = new MapperConfiguration(cfg => 
+            {
+            });
+        }
+
         private void AddValidatorsInjection(IServiceCollection services)
         {
             //TODO: Add all validator injections here
@@ -101,13 +112,17 @@ namespace Finances.Api
             #region Exceptions
             #endregion
 
+            #region Expenses
+            services.AddScoped<AbstractValidator<GetExpensesByUserId>, GetExpensesByUserIdValidator>();
+            #endregion
+
             #region Favored
             #endregion
 
             #region Incomings
             services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
             services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
-            #endregion            
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

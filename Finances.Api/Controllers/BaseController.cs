@@ -23,7 +23,8 @@ namespace Finances.Api.Controllers
         private IMediator _mediator;
         private IOptions<AppSettings> AppSettings;
         protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
-        
+
+        public BaseController() {}
         public BaseController(IOptions<AppSettings> appSettings)
         {
             AppSettings = appSettings;

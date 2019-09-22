@@ -1,9 +1,12 @@
 using System;
 using Xunit;
 
+using Finances.Api;
+using Finances.Core;
+
 namespace Finances.Test
 {
-    public class UnitTest1
+    public class AuthControllerTest
     {
         [Fact]
         public void Test1()

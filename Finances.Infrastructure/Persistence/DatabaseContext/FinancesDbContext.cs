@@ -37,12 +37,9 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var environmentName = Environment.GetEnvironmentVariable(AspNetCoreEnvironment);
-            Console.WriteLine(environmentName);
             var basePath = Directory.GetCurrentDirectory();
-            Console.WriteLine(basePath);
             basePath = basePath.Substring(0, basePath.LastIndexOf("/"));
             basePath = Path.Join(basePath, "Finances.Infrastructure/Persistence/DatabaseContext/");
-            Console.WriteLine(basePath);
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
