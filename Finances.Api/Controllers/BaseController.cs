@@ -3,7 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Finances.Common.Data;
 using Finances.Common.Session;
+
+using AutoMapper;
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -22,13 +25,12 @@ namespace Finances.Api.Controllers
 
         private IMediator _mediator;
         private IOptions<AppSettings> AppSettings;
+        protected IMapper Mapper;
         protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
 
         public BaseController() {}
-        public BaseController(IOptions<AppSettings> appSettings)
-        {
-            AppSettings = appSettings;
-        }
+        public BaseController(IMapper mapper) { Mapper = mapper; }
+        public BaseController(IOptions<AppSettings> appSettings) { AppSettings = appSettings; }
 
         public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

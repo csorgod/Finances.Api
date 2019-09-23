@@ -10,7 +10,7 @@ using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
 {
-    public class GetExpensesByUserIdHandler : IRequestHandler<GetExpensesByUserId, JsonDefaultResponse>
+    public class GetExpensesByUserIdHandler : IRequestHandler<GetExpensesByUserIdRequest, GetExpensesByUserIdResponse>
     {
         private readonly IFinancesDbContext _context;
 
@@ -19,21 +19,21 @@ namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> Handle(GetExpensesByUserId request, CancellationToken cancellationToken)
+        public async Task<GetExpensesByUserIdResponse> Handle(GetExpensesByUserIdRequest request, CancellationToken cancellationToken)
         {
             var userHasPerson = await _context.UserHasPerson
                 .Where(uhp => uhp.UserId == request.UserId)
                 .SingleOrDefaultAsync();
 
             if (userHasPerson == null)
-                return new JsonDefaultResponse { Success = false, Message = "Seu usuário não foi encontrado" };
+                return new GetExpensesByUserIdResponse { Success = false, Message = "Seu usuário não foi encontrado" };
 
-            var Expenses = await _context.Expense
+            var expenses = await _context.Expense
                 .Where(e => e.PersonId == userHasPerson.PersonId)
                 .Select(e => ExpensesByUserIdModel.Create(e))
                 .ToListAsync();
 
-            return new JsonDefaultResponse { Success = true, Payload = Expenses };
+            return new GetExpensesByUserIdResponse { Expenses = expenses };
         }
     }
 }

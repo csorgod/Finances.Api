@@ -57,7 +57,7 @@ namespace Finances.Api
             services.AddScoped<IFinancesDbContext, FinancesDbContext>();
 
             AddValidatorsInjection(services);
-            ConfigureAutoMapper();
+            ConfigureAutoMapper(services);
             
             services
                 // .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
@@ -91,11 +91,14 @@ namespace Finances.Api
                 });
         }
 
-        private void ConfigureAutoMapper()
+        private void ConfigureAutoMapper(IServiceCollection services)
         {
             var configuration = new MapperConfiguration(cfg => 
             {
             });
+
+            configuration.AssertConfigurationIsValid();
+            // services.Add
         }
 
         private void AddValidatorsInjection(IServiceCollection services)
@@ -113,7 +116,7 @@ namespace Finances.Api
             #endregion
 
             #region Expenses
-            services.AddScoped<AbstractValidator<GetExpensesByUserId>, GetExpensesByUserIdValidator>();
+            services.AddScoped<AbstractValidator<GetExpensesByUserIdRequest>, GetExpensesByUserIdValidator>();
             #endregion
 
             #region Favored

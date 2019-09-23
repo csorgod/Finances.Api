@@ -1,10 +1,6 @@
-using Finances.Core.Domain.Entities;
-using System;
-using System.Linq.Expressions;
-
-namespace Finances.Api.Controllers
+namespace Finances.Api.DTO.Expenses
 {
-    public class GetExpensesByUserIdDTO
+    public class ExpenseDTO
     {
         public string Name { get; set; }
         public string Description { get; set; }

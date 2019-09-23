@@ -4,7 +4,7 @@ using System;
 
 namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
 {
-    public class GetExpensesByUserId : IRequest<GetExpensesByUserIdResponse>
+    public class GetExpensesByUserIdRequest : IRequest<GetExpensesByUserIdResponse>
     {
         public Guid UserId { get; set; }
     }
