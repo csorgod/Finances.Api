@@ -1,25 +1,30 @@
-﻿using Finances.Common.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using AutoMapper;
+
+using Finances.Api.DTO.Incomings;
 using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
 {
     public class IncomingController : BaseController
     {
-        public IncomingController(IOptions<AppSettings> appSettings) : base(appSettings) { }
+        public IncomingController(IMapper mapper) : base(mapper) { }
 
         [HttpGet]
-        public async Task<IActionResult> GetByUserId()
+        public async Task<IActionResult> GetIncomingsByUserId()
         {
-            var result = await Mediator.Send(new GetIncomingsByUserId { UserId = UserLogged.UserId });
-            return StatusCode(result.StatusCode, result);
+            var result = await Mediator.Send(new GetIncomingsByUserIdRequest { UserId = UserLogged.UserId });
+            var incomings = Mapper.Map<IEnumerable<IncomingsByUserIdModel>, IEnumerable<IncomingDTO>>(result.Incomings);
+
+            return StatusCode(result.StatusCode, new IncomingsDTO(incomings));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]CreateIncoming value)
+        public async Task<IActionResult> Create([FromBody] CreateIncoming value)
         {
             var result = await Mediator.Send(value);
             return StatusCode(result.StatusCode, result);

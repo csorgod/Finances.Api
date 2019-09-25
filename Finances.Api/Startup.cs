@@ -123,8 +123,8 @@ namespace Finances.Api
             #endregion
 
             #region Incomings
-            services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
-            services.AddScoped<AbstractValidator<GetIncomingsByUserId>, GetIncomingsByUserIdValidator>();
+            // services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
+            services.AddScoped<AbstractValidator<GetIncomingsByUserIdRequest>, GetIncomingsByUserIdValidator>();
             #endregion
         }
 
