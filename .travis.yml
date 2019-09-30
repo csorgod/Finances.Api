@@ -5,9 +5,6 @@ services:
 before_install:
   - docker build -t finances/api -f Finances.Api/Dockerfile .
 
-script:
-  - docker run -e CI=true -p 5000:5000 finances/api
-
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
