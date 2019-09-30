@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t finances/api -f Finances.Api/Dockerfile .
+
+script:
+  - docker run -e CI=true -p 5000:5000 finances/api
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "Finances.Api"
+  env: "Financesapi-env"
+  bucket_name: "elasticbeanstalk-us-east-2-280387367008"
+  bucket_path: "Finances.Api"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_ACCESS_KEY"
