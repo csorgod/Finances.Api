@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2-alpine AS build-env
 WORKDIR /app
 
 COPY . ./
-RUN dotnet publish Finances.Api -c Release -o out
+RUN dotnet publish Finances.Api/*.csproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-alpine
 ENV ASPNETCORE_ENVIRONMENT Production
