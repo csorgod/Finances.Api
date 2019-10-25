@@ -39,7 +39,7 @@ namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
             };
         }
 
-        public async Task<GetIncomingsByUserIdResponse> Handle(GetIncomingsByUserIdRequest request, CancellationToken cancellationToken)
+        public async Task<GetIncomingsByUserIdResponse> HandleAsync(GetIncomingsByUserIdRequest request, CancellationToken cancellationToken)
         {
             if (await UserNotFound(request.UserId))
                 return FailResponse($"O usuário com id {request.UserId} não foi encontrado", 400);

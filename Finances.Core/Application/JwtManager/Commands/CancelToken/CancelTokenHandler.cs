@@ -20,7 +20,7 @@ namespace Finances.Core.Application.JwtManager.Commands.CancelToken
             _mediator = mediator;
         }
 
-        public async Task<JsonDefaultResponse> Handle(CancelToken request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(CancelToken request, CancellationToken cancellationToken)
         {
             try
             {

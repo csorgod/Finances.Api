@@ -17,7 +17,7 @@ namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> Handle(GetProfileByUserId request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(GetProfileByUserId request, CancellationToken cancellationToken)
         {
             var profile = new ProfileByUserIdModel();
 

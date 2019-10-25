@@ -23,7 +23,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
             _mediator = mediator;
         }
 
-        public async Task<JsonDefaultResponse> Handle(CreateFavored request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(CreateFavored request, CancellationToken cancellationToken)
         {
             bool registerAuthorized = false;
 

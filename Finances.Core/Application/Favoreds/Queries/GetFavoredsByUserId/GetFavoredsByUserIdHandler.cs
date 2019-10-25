@@ -20,7 +20,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> Handle(GetFavoredsByUserId request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(GetFavoredsByUserId request, CancellationToken cancellationToken)
         {
             var favoredList = new List<FavoredsByUserIdModel>();
 

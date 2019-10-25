@@ -19,7 +19,7 @@ namespace Finances.Common.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -61,11 +61,38 @@ namespace Finances.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Houve um erro no servidor ao criar a sua conta.
+        /// </summary>
+        public static string ErrorCreatingAccount {
+            get {
+                return ResourceManager.GetString("ErrorCreatingAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Houve um erro ao salvar o token de autenticação..
         /// </summary>
         public static string ErrorSaveAuthToken {
             get {
                 return ResourceManager.GetString("ErrorSaveAuthToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Houve um problema ao consultar os usuários existentes..
+        /// </summary>
+        public static string ErrorSearchingForUsers {
+            get {
+                return ResourceManager.GetString("ErrorSearchingForUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Já existe um usuário cadastrado com esse nome de usuário..
+        /// </summary>
+        public static string ErrorUserAlreadyExists {
+            get {
+                return ResourceManager.GetString("ErrorUserAlreadyExists", resourceCulture);
             }
         }
         
@@ -93,6 +120,15 @@ namespace Finances.Common.Resources {
         public static string PasswordInformedIsIncorrect {
             get {
                 return ResourceManager.GetString("PasswordInformedIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conta criada com sucesso..
+        /// </summary>
+        public static string SuccessAccountCreation {
+            get {
+                return ResourceManager.GetString("SuccessAccountCreation", resourceCulture);
             }
         }
         

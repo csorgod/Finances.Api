@@ -20,6 +20,12 @@ namespace Finances.Api.Controllers
             return Ok(await Mediator.Send(loginData));
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Logout([FromBody]SignOut loginData)
+        {
+            return Ok(await Mediator.Send(loginData));
+        }
+
         [AllowAnonymous]
         [HttpPost("CreateAccount")]
         public async Task<IActionResult> CreateAccount([FromBody]CreateAccount newAccount)

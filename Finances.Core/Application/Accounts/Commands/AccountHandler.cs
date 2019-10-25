@@ -17,7 +17,7 @@ namespace Finances.Core.Application.Accounts.Commands
             _mediator = mediator;
         }
 
-        public async Task<Unit> Handle(CreateAccount request, CancellationToken cancellationToken)
+        public async Task<Unit> HandleAsync(CreateAccount request, CancellationToken cancellationToken)
         {
             var entity = new Account
             {

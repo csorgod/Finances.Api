@@ -29,7 +29,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
             cryptoHelper = new CryptoHelper();
         }
 
-        public async Task<JsonDefaultResponse> Handle(SignIn request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(SignIn request, CancellationToken cancellationToken)
         {
             var login = await _context.User
                 .Where(u => u.Username == request.Username)
@@ -77,7 +77,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
             if (oldJWT != null)
             {
                 oldJWT.Status = Status.Inactive;
-                //oldJWT.UpdatedDate = DateTime.Now; -- Verificar se a data está correta
+                oldJWT.UpdatedDate = DateTime.Now;
                 _context.Entry(oldJWT).State = EntityState.Modified;
                 await _context.SaveChangesAsync(cancellationToken);
             }

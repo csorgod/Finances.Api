@@ -23,7 +23,7 @@ namespace Finances.Core.Application.Favoreds.Commands.DeleteFavored
             _mediator = mediator;
         }
 
-        public async Task<JsonDefaultResponse> Handle(DeleteFavored request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(DeleteFavored request, CancellationToken cancellationToken)
         {
             try
             {

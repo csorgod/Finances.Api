@@ -24,7 +24,7 @@ namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
             _mediator = mediator;
         }
 
-        public async Task<JsonDefaultResponse> Handle(CreateIncoming request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(CreateIncoming request, CancellationToken cancellationToken)
         {
             try
             {

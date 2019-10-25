@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using static Finances.Common.Helpers.Enum;
+using Resx = Finances.Common.Resources;
 
 namespace Finances.Core.Application.Authorization.Commands.CreateAccount
 {
@@ -24,7 +25,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             _cryptoHelper = cryptoHelper;
         }
 
-        public async Task<JsonDefaultResponse> Handle(CreateAccount request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> HandleAsync(CreateAccount request, CancellationToken cancellationToken)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
                     return new JsonDefaultResponse
                     {
                         Success = false,
-                        Message = "Já existe um usuário cadastrado com esse nome de usuário."
+                        Message = Resx.Strings.ErrorUserAlreadyExists
                     };
             }
             catch
@@ -44,7 +45,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "Houve um problema ao consultar os usuários existentes."
+                    Message = Resx.Strings.ErrorSearchingForUsers
                 };
             }
             
@@ -102,14 +103,14 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = "Houve um erro no servidor ao criar a sua conta"
+                    Message = Resx.Strings.ErrorCreatingAccount
                 };
             }
 
             return new JsonDefaultResponse
             {
                 Success = true,
-                Message = "Conta criada com sucesso."
+                Message = Resx.Strings.SuccessAccountCreation
             };
         }
     }
