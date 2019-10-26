@@ -56,7 +56,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                     Message = Resx.Strings.UserDoesntHaveAccessPermission
                 };
 
-            var viewModel = new LoginJwt
+            var loginToken = new LoginJwt
             {
                 UserId = login.Id,
                 Validation = Guid.NewGuid().ToString(),
@@ -66,12 +66,12 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
 
             Common.Helpers.JwtManager jwtManager = new Common.Helpers.JwtManager(Configuration);
 
-            string tokenJWT = jwtManager.GenerateToken(viewModel);
+            string tokenJWT = jwtManager.GenerateToken(loginToken);
 
             #region Saving JWT in the Database
 
             var oldJWT = await _context.LoginJwt
-            .Where(j => j.UserId == viewModel.UserId && j.Status == Status.Active && j.ExpireDate > DateTime.Now)
+            .Where(j => j.UserId == loginToken.UserId && j.Status == Status.Active && j.ExpireDate > DateTime.Now)
             .SingleOrDefaultAsync();
 
             if (oldJWT != null)
@@ -85,12 +85,12 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
             string[] tokenSplitted = tokenJWT.Split('.');
             var jwt = new Domain.Entities.LoginJwt
             {
-                UserId = viewModel.UserId,
+                UserId = loginToken.UserId,
                 Header = tokenSplitted[0],
                 Payload = tokenSplitted[1],
                 Signature = tokenSplitted[2],
                 Status = Status.Active,
-                ExpireDate = viewModel.ExpireDate
+                ExpireDate = loginToken.ExpireDate
             };
 
             try
@@ -109,7 +109,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
 
             #endregion
             
-            await _mediator.Publish(new UserAuthenticated { Id = viewModel.UserId }, cancellationToken);
+            await _mediator.Publish(new UserAuthenticated { Id = loginToken.UserId }, cancellationToken);
 
             var person = await _context.UserHasPerson
             .Where(uhp => uhp.UserId == login.Id)

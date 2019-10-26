@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ErrorCreatingAccount" xml:space="preserve">
-    <value>Houve um erro no servidor ao criar a sua conta</value>
+    <value>Houve um erro no servidor ao criar a sua conta.</value>
+  </data>
+  <data name="ErrorLoggingOut" xml:space="preserve">
+    <value>Houve um erro inesperado ao tentar deslogar.</value>
   </data>
   <data name="ErrorSaveAuthToken" xml:space="preserve">
     <value>Houve um erro ao salvar o token de autenticação.</value>
@@ -128,6 +131,9 @@
   </data>
   <data name="ErrorUserAlreadyExists" xml:space="preserve">
     <value>Já existe um usuário cadastrado com esse nome de usuário.</value>
+  </data>
+  <data name="ErrorUserNotLoggedYet" xml:space="preserve">
+    <value>O usuário informado ainda não está logado.</value>
   </data>
   <data name="LoginAndOrPasswordIncorrect" xml:space="preserve">
     <value>Login e/ou senha incorretos.</value>
@@ -140,6 +146,9 @@
   </data>
   <data name="SuccessAccountCreation" xml:space="preserve">
     <value>Conta criada com sucesso.</value>
+  </data>
+  <data name="SuccessUserLoggedOut" xml:space="preserve">
+    <value>Usuário deslogado com sucesso.</value>
   </data>
   <data name="UserDoesntHaveAccessPermission" xml:space="preserve">
     <value>Esse usuário não possui permissão de acesso.</value>

@@ -1,6 +1,7 @@
 ﻿using Finances.Common.Data;
 using Finances.Core.Application.Authorization.Commands.CreateAccount;
 using Finances.Core.Application.Authorization.Commands.SignIn;
+using Finances.Core.Application.Authorization.Commands.SignOut;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

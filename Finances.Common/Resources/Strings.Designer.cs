@@ -19,7 +19,7 @@ namespace Finances.Common.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -61,11 +61,20 @@ namespace Finances.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Houve um erro no servidor ao criar a sua conta.
+        ///   Looks up a localized string similar to Houve um erro no servidor ao criar a sua conta..
         /// </summary>
         public static string ErrorCreatingAccount {
             get {
                 return ResourceManager.GetString("ErrorCreatingAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Houve um erro inesperado ao tentar deslogar..
+        /// </summary>
+        public static string ErrorLoggingOut {
+            get {
+                return ResourceManager.GetString("ErrorLoggingOut", resourceCulture);
             }
         }
         
@@ -93,6 +102,15 @@ namespace Finances.Common.Resources {
         public static string ErrorUserAlreadyExists {
             get {
                 return ResourceManager.GetString("ErrorUserAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O usuário informado ainda não está logado..
+        /// </summary>
+        public static string ErrorUserNotLoggedYet {
+            get {
+                return ResourceManager.GetString("ErrorUserNotLoggedYet", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace Finances.Common.Resources {
         public static string SuccessAccountCreation {
             get {
                 return ResourceManager.GetString("SuccessAccountCreation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuário deslogado com sucesso..
+        /// </summary>
+        public static string SuccessUserLoggedOut {
+            get {
+                return ResourceManager.GetString("SuccessUserLoggedOut", resourceCulture);
             }
         }
         

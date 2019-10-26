@@ -10,7 +10,8 @@ namespace Finances.Common.Helpers
         {
             Active = 0,
             Inactive = 1,
-            Blocked = 2
+            Blocked = 2,
+            Expired = 3
         }
 
         public enum LoginMode
