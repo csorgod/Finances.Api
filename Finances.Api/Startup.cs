@@ -60,7 +60,7 @@ namespace Finances.Api
             ConfigureAutoMapper(services);
             
             services
-                // .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
+                .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
                 .Configure<AppSettings>(appSettingsSection)
                 .AddAutoMapper()
                 .AddMediatR()
@@ -95,36 +95,43 @@ namespace Finances.Api
         {
             var configuration = new MapperConfiguration(cfg => 
             {
+
             });
 
             configuration.AssertConfigurationIsValid();
-            // services.Add
         }
 
         private void AddValidatorsInjection(IServiceCollection services)
         {
-            //TODO: Add all validator injections here
             #region Accounts
+
             #endregion
 
             #region Authorization
+
             services.AddScoped<AbstractValidator<CreateAccount>, CreateAccountValidator>();
             services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
+
             #endregion
 
             #region Exceptions
+
             #endregion
 
             #region Expenses
+
             services.AddScoped<AbstractValidator<GetExpensesByUserIdRequest>, GetExpensesByUserIdValidator>();
+
             #endregion
 
             #region Favored
+
             #endregion
 
             #region Incomings
-            // services.AddScoped<AbstractValidator<CreateIncoming>, CreateIncomingValidator>();
+
             services.AddScoped<AbstractValidator<GetIncomingsByUserIdRequest>, GetIncomingsByUserIdValidator>();
+
             #endregion
         }
 

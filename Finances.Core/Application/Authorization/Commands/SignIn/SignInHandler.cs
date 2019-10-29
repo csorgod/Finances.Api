@@ -29,7 +29,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
             cryptoHelper = new CryptoHelper();
         }
 
-        public async Task<JsonDefaultResponse> HandleAsync(SignIn request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(SignIn request, CancellationToken cancellationToken)
         {
             var login = await _context.User
                 .Where(u => u.Username == request.Username)
