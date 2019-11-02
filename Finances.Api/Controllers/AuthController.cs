@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
@@ -13,25 +14,38 @@ namespace Finances.Api.Controllers
     public class AuthController : BaseController
     {
         public AuthController(IOptions<AppSettings> appSettings) : base(appSettings) { }
-
-        [AllowAnonymous]
-        [HttpPost("login")]
+                
+        [AllowAnonymous, HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]SignIn loginData)
         {
-            return Ok(await Mediator.Send(loginData));
+            var response = await Mediator.Send(loginData);
+
+            if (response.Errors.Any())
+                return StatusCode(500, response);
+
+            return StatusCode(200, response);
         }
 
-        [HttpPost("login")]
+        [HttpPost("logout")]
         public async Task<IActionResult> Logout([FromBody]SignOut loginData)
         {
-            return Ok(await Mediator.Send(loginData));
+            var response = await Mediator.Send(loginData);
+
+            if (response.Errors.Any())
+                return StatusCode(500, response);
+
+            return StatusCode(200, response);
         }
 
-        [AllowAnonymous]
-        [HttpPost("CreateAccount")]
+        [AllowAnonymous, HttpPost("CreateAccount")]
         public async Task<IActionResult> CreateAccount([FromBody]CreateAccount newAccount)
         {
-            return Ok(await Mediator.Send(newAccount));
+            var response = await Mediator.Send(newAccount);
+
+            if (response.Errors.Any())
+                return StatusCode(500, response);
+
+            return StatusCode(200, response);
         }
     }
 }

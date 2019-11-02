@@ -18,9 +18,7 @@ using System.Net;
 
 namespace Finances.Api.Controllers
 {
-    [Authorize]
-    [ApiController]
-    [Route("[controller]")]
+    [Authorize, ApiController, Route("[controller]")]
     public abstract class BaseController : Controller
     {
         protected LoginJwt UserLogged;
