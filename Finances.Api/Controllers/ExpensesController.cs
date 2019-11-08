@@ -1,11 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using AutoMapper;
-
-using Finances.Api.DTO.Expenses;
 using Finances.Core.Application.Expenses.Queries.GetExpensesByUserId;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
 {
@@ -16,11 +13,12 @@ namespace Finances.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetExpensesByUserId() 
         {
-            var result = await Mediator.Send(new GetExpensesByUserIdRequest { UserId = UserLogged.UserId });
-            
-            var expenses = Mapper.Map<IEnumerable<ExpensesByUserIdModel>, IEnumerable<ExpenseDTO>>(result.Expenses);
+            var response = await Mediator.Send(new ExpensesByUserId { UserId = UserLogged.UserId });
+                        
+            if (response.Errors.Any())
+                return StatusCode(500, response);
 
-            return StatusCode(result.StatusCode, new ExpensesDTO(expenses));
+            return StatusCode(200, response);
         }
 
         [HttpPost]

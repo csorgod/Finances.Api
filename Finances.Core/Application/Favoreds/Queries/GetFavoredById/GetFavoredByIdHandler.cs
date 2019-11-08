@@ -17,7 +17,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> HandleAsync(GetFavoredById request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(GetFavoredById request, CancellationToken cancellationToken)
         {
             var favored = await _context.Favored
                 .FindAsync(request.Id);

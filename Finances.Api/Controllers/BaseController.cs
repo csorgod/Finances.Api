@@ -24,9 +24,11 @@ namespace Finances.Api.Controllers
         protected LoginJwt UserLogged;
 
         private IMediator _mediator;
-        private IOptions<AppSettings> AppSettings;
-        protected IMapper Mapper;
         protected IMediator Mediator => _mediator ?? (_mediator = HttpContext.RequestServices.GetService<IMediator>());
+
+        private IOptions<AppSettings> AppSettings;
+
+        protected IMapper Mapper;
 
         public BaseController() {}
         public BaseController(IMapper mapper) { Mapper = mapper; }
@@ -34,7 +36,12 @@ namespace Finances.Api.Controllers
 
         public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var allow = context.Controller.GetType().GetMethod(ControllerContext.ActionDescriptor.ActionName).GetCustomAttributes(typeof(AllowAnonymousAttribute), true).ToList();
+            var allow = context.Controller
+                .GetType()
+                .GetMethod(ControllerContext.ActionDescriptor.ActionName)
+                .GetCustomAttributes(typeof(AllowAnonymousAttribute), true)
+                .ToList();
+
             if (allow.Count() == 0)
             {
                 UserLogged = new LoginJwt

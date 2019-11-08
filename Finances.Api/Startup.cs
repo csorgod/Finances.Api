@@ -120,7 +120,7 @@ namespace Finances.Api
 
             #region Expenses
 
-            services.AddScoped<AbstractValidator<GetExpensesByUserIdRequest>, GetExpensesByUserIdValidator>();
+            services.AddScoped<AbstractValidator<ExpensesByUserId>, GetExpensesByUserIdValidator>();
 
             #endregion
 

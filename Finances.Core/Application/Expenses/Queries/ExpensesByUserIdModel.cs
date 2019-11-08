@@ -31,8 +31,6 @@ namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
         }
 
         public static ExpensesByUserIdModel Create(Expense Expense)
-        {
-            return Projection.Compile().Invoke(Expense);
-        }
+            => Projection.Compile().Invoke(Expense);
     }
 }

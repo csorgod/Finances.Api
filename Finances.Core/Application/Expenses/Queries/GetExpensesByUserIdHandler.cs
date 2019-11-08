@@ -12,44 +12,38 @@ using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
 {
-    public class GetExpensesByUserIdHandler : IRequestHandler<GetExpensesByUserIdRequest, GetExpensesByUserIdResponse>
+    public class GetExpensesByUserIdHandler : IRequestHandler<ExpensesByUserId, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
-        private UserHasPerson userHasPerson;
+        
         public GetExpensesByUserIdHandler(IFinancesDbContext context)
         {
             _context = context;
         }
 
-        private async Task<bool> UserNotFound(Guid userId)
+        public async Task<JsonDefaultResponse> Handle(ExpensesByUserId request, CancellationToken cancellationToken)
         {
-            userHasPerson = await _context.UserHasPerson
-                .Where(uhp => uhp.UserId == userId)
+            var userHasPerson = await _context.UserHasPerson
+                .Where(uhp => uhp.UserId == request.UserId)
                 .SingleOrDefaultAsync();
-            return userHasPerson == null;
-        }
 
-        private GetExpensesByUserIdResponse FailResponse(string message, int statusCode)
-        {
-            return new GetExpensesByUserIdResponse
-            {
-                Success = false,
-                StatusCode = statusCode,
-                Message = message
-            };
-        }
-
-        public async Task<GetExpensesByUserIdResponse> HandleAsync(GetExpensesByUserIdRequest request, CancellationToken cancellationToken)
-        {
-            if (await UserNotFound(request.UserId))
-                return FailResponse($"O usuário com id {request.UserId} não foi encontrado", 400);
+            if (userHasPerson == null)
+                return new JsonDefaultResponse
+                {
+                    Success = false,
+                    Message = "O usuário não possui uma pessoa vinculada"
+                };
 
             var expenses = await _context.Expense
                 .Where(e => e.PersonId == userHasPerson.PersonId)
                 .Select(e => ExpensesByUserIdModel.Create(e))
                 .ToListAsync();
 
-            return new GetExpensesByUserIdResponse { Expenses = expenses };
+            return new JsonDefaultResponse
+            {
+                Success = true,
+                Payload = expenses
+            };
         }
     }
 }
