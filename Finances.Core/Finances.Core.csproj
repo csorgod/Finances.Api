@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Application\Accounts\Queries\" />
     <Folder Include="Application\Authorization\Queries\" />
+    <Folder Include="Application\Expenses\Commands\" />
     <Folder Include="Application\JwtManager\Queries\" />
     <Folder Include="Application\Users\Commands\" />
   </ItemGroup>

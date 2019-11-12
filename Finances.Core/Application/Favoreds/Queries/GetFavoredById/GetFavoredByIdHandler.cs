@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
 {
-    public class GetFavoredByIdHandler : IRequestHandler<GetFavoredById, JsonDefaultResponse>
+    public class GetFavoredByIdHandler : IRequestHandler<FavoredById, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
 
@@ -17,7 +17,7 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredById
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> Handle(GetFavoredById request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(FavoredById request, CancellationToken cancellationToken)
         {
             var favored = await _context.Favored
                 .FindAsync(request.Id);

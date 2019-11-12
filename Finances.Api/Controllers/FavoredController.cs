@@ -18,13 +18,13 @@ namespace Finances.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            return Ok(await Mediator.Send(new GetFavoredById { Id = id }));
+            return Ok(await Mediator.Send(new FavoredById { Id = id }));
         }
 
         [HttpGet("ByUserId")]
         public async Task<IActionResult> GetByUserId()
         {
-            return Ok(await Mediator.Send(new GetFavoredsByUserId { UserId = UserLogged.UserId }));
+            return Ok(await Mediator.Send(new FavoredsByUserId { UserId = UserLogged.UserId }));
         }
         
         [HttpPost]

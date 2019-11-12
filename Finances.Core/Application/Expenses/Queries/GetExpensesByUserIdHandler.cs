@@ -1,14 +1,10 @@
 using Finances.Common.Data;
 using Finances.Core.Application.Interfaces;
-using Finances.Core.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Expenses.Queries.GetExpensesByUserId
 {

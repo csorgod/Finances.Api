@@ -17,7 +17,7 @@ namespace Finances.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIncomingsByUserId()
         {
-            var result = await Mediator.Send(new GetIncomingsByUserIdRequest { UserId = UserLogged.UserId });
+            var result = await Mediator.Send(new IncomingsByUserId { UserId = UserLogged.UserId });
             var incomings = Mapper.Map<IEnumerable<IncomingsByUserIdModel>, IEnumerable<IncomingDTO>>(result.Incomings);
 
             return StatusCode(result.StatusCode, new IncomingsDTO(incomings));

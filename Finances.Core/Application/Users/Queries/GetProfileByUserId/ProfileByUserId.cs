@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
 {
-    public class GetProfileByUserId : IRequest<JsonDefaultResponse>
+    public class ProfileByUserId : IRequest<JsonDefaultResponse>
     {
         public Guid UserId { get; set; }
     }

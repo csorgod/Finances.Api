@@ -7,8 +7,6 @@ namespace Finances.Infrastructure.Infrastructure
     public class NotificationService : INotificationService
     {
         public Task SendAsync(Message message)
-        {
-            return Task.CompletedTask;
-        }
+            => Task.CompletedTask;
     }
 }

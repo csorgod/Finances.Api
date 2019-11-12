@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
 {
-    public class GetProfileByUserIdHandler : IRequestHandler<GetProfileByUserId, JsonDefaultResponse>
+    public class GetProfileByUserIdHandler : IRequestHandler<ProfileByUserId, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
 
@@ -17,7 +17,7 @@ namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> HandleAsync(GetProfileByUserId request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(ProfileByUserId request, CancellationToken cancellationToken)
         {
             var profile = new ProfileByUserIdModel();
 

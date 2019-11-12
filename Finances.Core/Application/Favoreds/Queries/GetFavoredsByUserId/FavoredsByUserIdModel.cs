@@ -27,8 +27,6 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
         }
 
         public static FavoredsByUserIdModel Create(Favored customer)
-        {
-            return Projection.Compile().Invoke(customer);
-        }
+            => Projection.Compile().Invoke(customer);
     }
 }

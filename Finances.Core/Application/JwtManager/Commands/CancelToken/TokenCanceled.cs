@@ -19,9 +19,7 @@ namespace Finances.Core.Application.JwtManager.Commands.CancelToken
             }
 
             public async Task Handle(TokenCanceled notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
     }
 }

@@ -21,9 +21,7 @@ namespace Finances.Core.Application
             }
 
             public async Task Handle(T notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
     }
 }

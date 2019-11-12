@@ -49,8 +49,6 @@ namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
         }
 
         public static ProfileByUserIdModel Create(User user)
-        {
-            return Projection.Compile().Invoke(user);
-        }
+            => Projection.Compile().Invoke(user);
     }
 }

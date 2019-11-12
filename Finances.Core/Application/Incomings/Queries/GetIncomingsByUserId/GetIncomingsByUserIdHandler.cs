@@ -12,7 +12,7 @@ using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
 {
-    public class GetIncomingsByUserIdHandler : IRequestHandler<GetIncomingsByUserIdRequest, GetIncomingsByUserIdResponse>
+    public class GetIncomingsByUserIdHandler : IRequestHandler<IncomingsByUserId, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
         private UserHasPerson userHasPerson;
@@ -21,35 +21,30 @@ namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
             _context = context;
         }
 
-        private async Task<bool> UserNotFound(Guid userId)
+        public async Task<JsonDefaultResponse> Handle(IncomingsByUserId request, CancellationToken cancellationToken)
         {
-            userHasPerson = await _context.UserHasPerson
-                .Where(uhp => uhp.UserId == userId)
+            var userHasPerson = await _context.UserHasPerson
+                .Where(uhp => uhp.UserId == request.UserId)
                 .SingleOrDefaultAsync();
-            return userHasPerson == null;
-        }
 
-        private GetIncomingsByUserIdResponse FailResponse(string message, int statusCode)
-        {
-            return new GetIncomingsByUserIdResponse
-            {
-                Success = false,
-                StatusCode = statusCode,
-                Message = message
-            };
-        }
-
-        public async Task<GetIncomingsByUserIdResponse> HandleAsync(GetIncomingsByUserIdRequest request, CancellationToken cancellationToken)
-        {
-            if (await UserNotFound(request.UserId))
-                return FailResponse($"O usuário com id {request.UserId} não foi encontrado", 400);
+            if (userHasPerson == null)
+                return new JsonDefaultResponse
+                {
+                    Success = false,
+                    Message = "O usuário informado não foi encontrado"
+                };
 
             var incomings = await _context.Incoming
-                .Where(i => i.PersonId == userHasPerson.PersonId && i.Status == Status.Active)
+                .Where(i => i.PersonId == userHasPerson.PersonId)
+                .Where(i => i.Status == Status.Active)
                 .Select(i => IncomingsByUserIdModel.Create(i))
                 .ToListAsync();
 
-            return new GetIncomingsByUserIdResponse { Incomings = incomings };
+            return new JsonDefaultResponse
+            {
+                Success = true,
+                Payload = incomings
+            };
         }
     }
 }

@@ -36,8 +36,6 @@ namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
         }
 
         public static IncomingsByUserIdModel Create(Incoming incoming)
-        {
-            return Projection.Compile().Invoke(incoming);
-        }
+            => Projection.Compile().Invoke(incoming);
     }
 }

@@ -11,7 +11,7 @@ using static Finances.Common.Helpers.Enum;
 
 namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
 {
-    public class GetFavoredsByUserIdHandler : IRequestHandler<GetFavoredsByUserId, JsonDefaultResponse>
+    public class GetFavoredsByUserIdHandler : IRequestHandler<FavoredsByUserId, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
 
@@ -20,12 +20,13 @@ namespace Finances.Core.Application.Favoreds.Queries.GetFavoredsByUserId
             _context = context;
         }
 
-        public async Task<JsonDefaultResponse> HandleAsync(GetFavoredsByUserId request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(FavoredsByUserId request, CancellationToken cancellationToken)
         {
             var favoredList = new List<FavoredsByUserIdModel>();
 
             var favoreds = await _context.Favored
-                .Where(f => f.BelongsToUserId == request.UserId && f.Status == Status.Active)
+                .Where(f => f.BelongsToUserId == request.UserId)
+                .Where(f => f.Status == Status.Active)
                 .ToListAsync();
 
             if (favoreds.Count == 0)

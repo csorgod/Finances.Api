@@ -19,9 +19,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             }
 
             public async Task Handle(AccountCreated notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
     }
 }

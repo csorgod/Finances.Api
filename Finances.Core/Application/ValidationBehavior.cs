@@ -15,6 +15,7 @@ namespace Finances.Core.Application
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse : class
     {
         private AbstractValidator<TRequest> _validator;
+
         public ValidationBehavior(AbstractValidator<TRequest> validator) 
         { 
             _validator = validator;
@@ -28,7 +29,10 @@ namespace Finances.Core.Application
 
         private static Task<TResponse> Errors(IEnumerable<ValidationFailure> failures)
         {
-            var response = new BaseResponse() { Errors = failures.Select(f => f.ErrorMessage).ToList() };
+            var response = new JsonDefaultResponse 
+            { 
+                Errors = failures.Select(f => f.ErrorMessage).ToList() 
+            };
             return Task.FromResult(response as TResponse);
         }
     }

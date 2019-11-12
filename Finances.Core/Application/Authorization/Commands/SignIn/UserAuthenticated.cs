@@ -21,9 +21,7 @@ namespace Finances.Core.Application.Authorization.Commands.SignIn
                 _notification = notification;
             }
             public async Task Handle(UserAuthenticated notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
     }
 }

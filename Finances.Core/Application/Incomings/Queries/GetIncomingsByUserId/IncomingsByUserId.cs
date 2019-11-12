@@ -4,7 +4,7 @@ using System;
 
 namespace Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId
 {
-    public class GetIncomingsByUserIdRequest : IRequest<GetIncomingsByUserIdResponse>
+    public class IncomingsByUserId : IRequest<JsonDefaultResponse>
     {
         public Guid UserId { get; set; }
     }

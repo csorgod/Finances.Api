@@ -15,7 +15,7 @@ namespace Finances.Api.Controllers
         [HttpGet("ProfileByUserId")]
         public async Task<IActionResult> ProfileByUserId()
         {
-            return Ok(await Mediator.Send(new GetProfileByUserId { UserId = UserLogged.UserId }));
+            return Ok(await Mediator.Send(new ProfileByUserId { UserId = UserLogged.UserId }));
         }
     }
 }

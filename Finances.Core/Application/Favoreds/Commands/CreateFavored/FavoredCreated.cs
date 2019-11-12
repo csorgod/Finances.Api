@@ -19,9 +19,7 @@ namespace Finances.Core.Application.Favoreds.Commands.CreateFavored
             }
 
             public async Task Handle(FavoredCreated notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
 
     }

@@ -19,9 +19,7 @@ namespace Finances.Core.Application.Incomings.Commands.CreateIncoming
             }
 
             public async Task Handle(IncomingCreated notification, CancellationToken cancellationToken)
-            {
-                await _notification.SendAsync(new Message());
-            }
+                => await _notification.SendAsync(new Message());
         }
     }
 }
