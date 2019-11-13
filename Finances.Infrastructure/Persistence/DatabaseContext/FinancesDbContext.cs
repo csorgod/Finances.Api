@@ -48,6 +48,7 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
                 .Build();
            
             var connectionString = configuration.GetConnectionString(ConnectionStringName);
+
             optionsBuilder.UseMySql(connectionString);
         }
     }

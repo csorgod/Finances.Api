@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
-using Finances.Api.DTO.Incomings;
+﻿using AutoMapper;
 using Finances.Core.Application.Incomings.Commands.CreateIncoming;
 using Finances.Core.Application.Incomings.Queries.GetIncomingsByUserId;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
 {
@@ -17,17 +15,24 @@ namespace Finances.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIncomingsByUserId()
         {
-            var result = await Mediator.Send(new IncomingsByUserId { UserId = UserLogged.UserId });
-            var incomings = Mapper.Map<IEnumerable<IncomingsByUserIdModel>, IEnumerable<IncomingDTO>>(result.Incomings);
+            var response = await Mediator.Send(new IncomingsByUserId { UserId = UserLogged.UserId });
 
-            return StatusCode(result.StatusCode, new IncomingsDTO(incomings));
+            if (response.Errors.Any())
+                return StatusCode(500, response);
+
+            return StatusCode(200, response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateIncoming value)
         {
-            var result = await Mediator.Send(value);
-            return StatusCode(result.StatusCode, result);
+            var response = await Mediator.Send(value);
+
+            if (response.Errors.Any())
+                return StatusCode(500, response);
+
+            return StatusCode(200, response);
+
         }
     }
 }

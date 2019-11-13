@@ -25,7 +25,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             _cryptoHelper = cryptoHelper;
         }
 
-        public async Task<JsonDefaultResponse> HandleAsync(CreateAccount request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(CreateAccount request, CancellationToken cancellationToken)
         {
             try
             {

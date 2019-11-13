@@ -60,7 +60,6 @@ namespace Finances.Api
             ConfigureAutoMapper(services);
             
             services
-                .AddDbContext<IFinancesDbContext, FinancesDbContext>(options => options.UseMySql(Configuration.GetConnectionString("MySqlConnection")))
                 .Configure<AppSettings>(appSettingsSection)
                 .AddAutoMapper()
                 .AddMediatR()
