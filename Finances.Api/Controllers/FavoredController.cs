@@ -18,25 +18,45 @@ namespace Finances.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            return Ok(await Mediator.Send(new FavoredById { Id = id }));
+            var response = await Mediator.Send(new FavoredById { Id = id });
+
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
 
         [HttpGet("ByUserId")]
         public async Task<IActionResult> GetByUserId()
         {
-            return Ok(await Mediator.Send(new FavoredsByUserId { UserId = UserLogged.UserId }));
+            var response = await Mediator.Send(new FavoredsByUserId { UserId = UserLogged.UserId });
+
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
         
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]CreateFavored value)
         {
-            return Ok(await Mediator.Send(value));
+            var response = await Mediator.Send(value);
+
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
         
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            return Ok(await Mediator.Send(new DeleteFavored { Id = id }));
+            var response = await Mediator.Send(new DeleteFavored { Id = id });
+
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
     }
 }

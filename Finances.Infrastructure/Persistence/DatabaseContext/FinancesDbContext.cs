@@ -51,5 +51,74 @@ namespace Finances.Infrastructure.Persistence.DatabaseContext
 
             optionsBuilder.UseMySql(connectionString);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(FinancesDbContext).Assembly);
+
+            #region Table references
+
+            modelBuilder
+                .Entity<Person>()
+                .ToTable("person", schema: "finances")
+                .HasIndex(p => p.TaxNumber)
+                .IsUnique();
+
+            modelBuilder
+                .Entity<User>()
+                .ToTable("user", schema: "finances")
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder
+                .Entity<UserHasPerson>()
+                .ToTable("user_has_person", schema: "finances");
+
+            modelBuilder
+                .Entity<Contact>()
+                .ToTable("contact", schema: "finances")
+                .HasIndex(c => c.Email)
+                .IsUnique();
+
+            modelBuilder
+                .Entity<PersonHasContact>()
+                .ToTable("person_has_contact", schema: "finances");
+
+            modelBuilder
+                .Entity<LoginJwt>()
+                .ToTable("login_jwt", schema: "finances");
+
+            modelBuilder
+                .Entity<UserImage>()
+                .ToTable("user_image", schema: "finances");
+
+            modelBuilder
+                .Entity<Account>()
+                .ToTable("account", schema: "finances");
+
+            modelBuilder
+                .Entity<Favored>()
+                .ToTable("favored", schema: "finances");
+
+            modelBuilder
+                 .Entity<FavoredHasAccount>()
+                 .ToTable("favored_has_account", schema: "finances");
+
+            modelBuilder
+                .Entity<UserHasAccount>()
+                .ToTable("user_has_account", schema: "finances");
+
+            modelBuilder
+                .Entity<Incoming>()
+                .ToTable("incoming", schema: "finances");
+
+            modelBuilder
+                .Entity<Card>()
+                .ToTable("card", schema: "finances");
+
+            #endregion
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

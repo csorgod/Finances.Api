@@ -17,10 +17,10 @@ namespace Finances.Api.Controllers
         {
             var response = await Mediator.Send(new IncomingsByUserId { UserId = UserLogged.UserId });
 
-            if (response.Errors.Any())
-                return StatusCode(500, response);
+            if (response.Success)
+                return StatusCode(200, response);
 
-            return StatusCode(200, response);
+            return StatusCode(500, response);
         }
 
         [HttpPost]
@@ -28,10 +28,10 @@ namespace Finances.Api.Controllers
         {
             var response = await Mediator.Send(value);
 
-            if (response.Errors.Any())
-                return StatusCode(500, response);
+            if (response.Success)
+                return StatusCode(200, response);
 
-            return StatusCode(200, response);
+            return StatusCode(500, response);
 
         }
     }

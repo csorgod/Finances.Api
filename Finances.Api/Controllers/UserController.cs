@@ -15,7 +15,12 @@ namespace Finances.Api.Controllers
         [HttpGet("ProfileByUserId")]
         public async Task<IActionResult> ProfileByUserId()
         {
-            return Ok(await Mediator.Send(new ProfileByUserId { UserId = UserLogged.UserId }));
+            var response = await Mediator.Send(new ProfileByUserId { UserId = UserLogged.UserId });
+
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
     }
 }

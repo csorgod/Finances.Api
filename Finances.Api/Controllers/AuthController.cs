@@ -20,10 +20,10 @@ namespace Finances.Api.Controllers
         {
             var response = await Mediator.Send(loginData);
 
-            if (response.Errors.Any())
-                return StatusCode(500, response);
+            if (response.Success)
+                return StatusCode(200, response);
 
-            return StatusCode(200, response);
+            return StatusCode(500, response);
         }
 
         [HttpPost("logout")]
@@ -31,10 +31,10 @@ namespace Finances.Api.Controllers
         {
             var response = await Mediator.Send(loginData);
 
-            if (response.Errors.Any())
-                return StatusCode(500, response);
+            if (response.Success)
+                return StatusCode(200, response);
 
-            return StatusCode(200, response);
+            return StatusCode(500, response);
         }
 
         [AllowAnonymous, HttpPost("CreateAccount")]
@@ -42,10 +42,10 @@ namespace Finances.Api.Controllers
         {
             var response = await Mediator.Send(newAccount);
 
-            if (response.Errors.Any())
-                return StatusCode(500, response);
+            if (response.Success)
+                return StatusCode(200, response);
 
-            return StatusCode(200, response);
+            return StatusCode(500, response);
         }
     }
 }

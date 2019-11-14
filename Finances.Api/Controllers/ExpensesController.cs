@@ -14,11 +14,11 @@ namespace Finances.Api.Controllers
         public async Task<IActionResult> GetExpensesByUserId() 
         {
             var response = await Mediator.Send(new ExpensesByUserId { UserId = UserLogged.UserId });
-                        
-            if (response.Errors.Any())
-                return StatusCode(500, response);
 
-            return StatusCode(200, response);
+            if (response.Success)
+                return StatusCode(200, response);
+
+            return StatusCode(500, response);
         }
 
         [HttpPost]

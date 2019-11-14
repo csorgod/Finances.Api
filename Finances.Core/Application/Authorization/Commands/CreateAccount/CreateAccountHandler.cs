@@ -4,6 +4,7 @@ using Finances.Core.Application.Interfaces;
 using Finances.Core.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,12 +41,12 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
                         Message = Resx.Strings.ErrorUserAlreadyExists
                     };
             }
-            catch
+            catch (Exception ex)
             {
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = Resx.Strings.ErrorSearchingForUsers
+                    Message = string.Format($"{Resx.Strings.ErrorSearchingForUsers}: {ex.Message}.")
                 };
             }
             
@@ -98,12 +99,12 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
                 _context.PersonHasContact.Add(personHasContact);
                 await _context.SaveChangesAsync(cancellationToken);
             }
-            catch
+            catch (Exception ex)
             {
                 return new JsonDefaultResponse
                 {
                     Success = false,
-                    Message = Resx.Strings.ErrorCreatingAccount
+                    Message = string.Format($"{Resx.Strings.ErrorCreatingAccount}: {ex.Message}.") 
                 };
             }
 
