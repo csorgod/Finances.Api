@@ -31,6 +31,8 @@ using Finances.Core.Application.Expenses.Queries.GetExpensesByUserId;
 
 using Finances.Infrastructure.Infrastructure;
 using Finances.Infrastructure.Persistence.DatabaseContext;
+using FluentValidation.AspNetCore;
+using System;
 
 namespace Finances.Api
 {
@@ -65,11 +67,19 @@ namespace Finances.Api
                 .AddMediatR()
                 .AddCors()
                 .AddMvc()
+                .AddFluentValidation()
                 .AddJsonOptions(options => { options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-                
-            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            const string applicationAssemblyName = "Finances.Core";
+            var assembly = AppDomain.CurrentDomain.Load(applicationAssemblyName);
+
+            AssemblyScanner
+            .FindValidatorsInAssembly(assembly)
+            .ForEach(result => services.AddScoped(result.InterfaceType, result.ValidatorType));
+
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.JwtSecret);
 
