@@ -54,7 +54,7 @@ namespace Finances.Core.Application.Users.Queries.GetProfileByUserId
             {
                 profile.FirstName = person.FirstName;
                 profile.LastName = person.LastName;
-                profile.Age = person.Age;
+                profile.BirthDate = person.BirthDate;
                 profile.TaxNumber = person.TaxNumber;
                 profile.Gender = person.Gender;
             }

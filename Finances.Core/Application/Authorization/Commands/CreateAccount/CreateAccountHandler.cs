@@ -13,7 +13,7 @@ using Resx = Finances.Common.Resources;
 
 namespace Finances.Core.Application.Authorization.Commands.CreateAccount
 {
-    public class CreateAccountHandler : IRequestHandler<CreateAccount, JsonDefaultResponse>
+    public class CreateAccountHandler : IRequestHandler<SignUp, JsonDefaultResponse>
     {
         private readonly IFinancesDbContext _context;
         private readonly IMediator _mediator;
@@ -26,7 +26,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             _cryptoHelper = cryptoHelper;
         }
 
-        public async Task<JsonDefaultResponse> Handle(CreateAccount request, CancellationToken cancellationToken)
+        public async Task<JsonDefaultResponse> Handle(SignUp request, CancellationToken cancellationToken)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Age = request.Age,
+                BirthDate = request.BirthDate,
                 TaxNumber = request.TaxNumber,
                 Gender = request.Gender
             };
@@ -75,7 +75,7 @@ namespace Finances.Core.Application.Authorization.Commands.CreateAccount
             var contact = new Contact
             {
                 PhoneNumber = request.PhoneNumber,
-                Email = request.PhoneNumber
+                Email = request.Email
             };
 
             var personHasContact = new PersonHasContact

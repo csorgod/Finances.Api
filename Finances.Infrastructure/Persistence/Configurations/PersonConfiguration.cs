@@ -32,10 +32,9 @@ namespace Finances.Infrastructure.Persistence.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(p => p.Age)
-                .HasColumnName("age")
-                .HasColumnType("int(2)")
-                .HasMaxLength(2)
+            builder.Property(p => p.BirthDate)
+                .HasColumnName("birth_date")
+                .HasColumnType("timestamp")
                 .IsRequired();
 
             builder.Property(p => p.TaxNumber)

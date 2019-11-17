@@ -5,8 +5,6 @@ using Finances.Core.Application.Authorization.Commands.SignOut;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Finances.Api.Controllers
@@ -38,7 +36,7 @@ namespace Finances.Api.Controllers
         }
 
         [AllowAnonymous, HttpPost("CreateAccount")]
-        public async Task<IActionResult> CreateAccount([FromBody]CreateAccount newAccount)
+        public async Task<IActionResult> CreateAccount([FromBody]SignUp newAccount)
         {
             var response = await Mediator.Send(newAccount);
 

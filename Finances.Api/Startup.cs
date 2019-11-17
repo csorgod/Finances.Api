@@ -118,7 +118,7 @@ namespace Finances.Api
 
             #region Authorization
 
-            services.AddScoped<AbstractValidator<CreateAccount>, CreateAccountValidator>();
+            services.AddScoped<AbstractValidator<SignUp>, CreateAccountValidator>();
             services.AddScoped<AbstractValidator<SignIn>, SignInValidator>();
 
             #endregion
