@@ -66,7 +66,10 @@ namespace Finances.Api
                 .AddAutoMapper()
                 .AddMediatR()
                 .AddCors()
-                .AddMvc()
+                .AddMvc().ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressModelStateInvalidFilter = true;
+                })
                 .AddFluentValidation()
                 .AddJsonOptions(options => { options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore; })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
